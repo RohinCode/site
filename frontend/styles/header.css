@@ -1,0 +1,286 @@
+@font-face {
+  font-family: IranSans;
+  src: url(../src/fonts/IranSans/IranSans.ttf);
+}
+
+#fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  background: #234a85ee;
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 5px 10px;
+  box-shadow: 0px 1px 10px rgba(2, 0, 0, 0.904);
+}
+
+.menu-item {
+  margin: 12px;
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+  background: #00000034;
+  border-radius: 4px;
+}
+
+.login {
+  outline: none;
+  border: 2px solid white;
+  font-family: IranSans;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 9px 18px;
+  background: transparent;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 13px;
+  transition: all 0.3s ease;
+}
+
+.login:hover {
+  background: white;
+  color: #285392;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px #00000030;
+}
+
+menu {
+  padding-top: 7px;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+h2 {
+  margin-right: 8px;
+  margin-top: 12px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.mother-menu {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.arrow {
+  font-size: 11px;
+  margin-right: 5px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  padding: 8px;
+  background: #f3f2f2;
+  color: #285392;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.hidden-item {
+  text-decoration: none;
+  color: #285392;
+  font-weight: bold;
+  display: block;
+  padding: 11px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 7px;
+  transition: background 0.2s ease;
+}
+
+.hidden-item:hover {
+  background: #28539212;
+}
+
+/* هاور فقط دسکتاپ - داخل مدیای موبایل غیرفعالش می‌کنیم */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  width: 230px;
+  background: white;
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.search-box input {
+  width: 90%;
+  padding: 10px 5px;
+  border: none;
+  outline: none;
+  font-family: IranSans;
+  font-size: 14px;
+  background: transparent;
+}
+
+.search-icon {
+  color: #285392;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  padding-top: 23px;
+  padding-right: 30px;
+}
+
+/* ---------- منوی موبایل ---------- */
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  background:#234a85ee;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.mobile-menu.open {
+  max-height: 600px;
+}
+
+.mobile-menu section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 10px 15px 20px;
+  margin: 0;
+}
+
+.mobile-menu .menu-item {
+  margin: 6px 0;
+}
+
+.mobile-menu .dropdown-menu {
+  position: static;
+  width: 100%;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  box-shadow: none;
+  display: none;
+  margin-top: 5px;
+}
+
+.mobile-menu .dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.mobile-menu .dropdown.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* ---------- ریسپانسیو ---------- */
+@media (max-width: 1150px) {
+  .login {
+    font-size: 15px;
+    padding: 3px 10px;
+    margin: 16px 3px;
+  }
+  .search-box {
+    width: 180px;
+    padding: 0 10px;
+  }
+  .search-box input {
+    width: 80%;
+    padding: 8px 5px;
+    font-size: 14px;
+  }
+  menu {
+    padding-top: 5px;
+  }
+}
+
+@media (max-width: 1062px) {
+  h2 {
+    display: none;
+  }
+}
+@media (max-width: 936px) {
+  .login {
+    font-size: 15px;
+    padding: 5px 15px;
+    margin: 16px 3px;
+  }
+  h2 {
+    display: block;
+  }
+  menu {
+    display: none;
+  }
+  .search-box {
+    width: 200px;
+    padding: 0 12px;
+  }
+  .search-box input {
+    width: 90%;
+    padding: 10px 5px;
+    font-size: 15px;
+  }
+  .mobile-menu-btn {
+    display: block;
+  }
+
+
+}
+
+@media (max-width: 600px) {
+  .search-box,
+  .search-box input {
+    display: none;
+  }
+}
+
+@media (max-width: 350px) {
+  h2 {
+    display: none;
+  }
+}
+
+@media (max-width: 170px) {
+  .login {
+    font-size: 13px;
+    padding: 2px 12px;
+    margin-right: 3px;
+  }
+}
