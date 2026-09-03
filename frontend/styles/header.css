@@ -1,6 +1,7 @@
 @font-face {
   font-family: IranSans;
   src: url(../src/fonts/IranSans/IranSans.ttf);
+  font-display: swap;
 }
 
 #fixed-header {
@@ -39,17 +40,18 @@
   padding: 9px 18px;
   background: transparent;
   color: white;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
   margin-top: 13px;
   transition: all 0.3s ease;
 }
 
 .login:hover {
-  background: white;
+  background: linear-gradient(0deg, white, #c7c0c0);
   color: #285392;
+  box-shadow: 0 5px 15px #fcfcfc69;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px #00000030;
 }
 
 menu {
@@ -85,13 +87,14 @@ h2 {
   right: 0;
   width: 200px;
   padding: 8px;
-  background: #f3f2f2;
-  color: #285392;
-  border-radius: 10px;
+  background: #1e2b64bb;
+  color: white;
+  border-radius: 7px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   transition:
     opacity 0.25s ease,
     transform 0.25s ease,
@@ -100,18 +103,18 @@ h2 {
 
 .hidden-item {
   text-decoration: none;
-  color: #285392;
   font-weight: bold;
   display: block;
   padding: 11px 12px;
   font-size: 14px;
   cursor: pointer;
+  color: white;
   border-radius: 7px;
   transition: background 0.2s ease;
 }
 
 .hidden-item:hover {
-  background: #28539212;
+  background: #00000044;
 }
 
 /* هاور فقط دسکتاپ - داخل مدیای موبایل غیرفعالش می‌کنیم */
@@ -169,7 +172,7 @@ h2 {
   top: 100%;
   right: 0;
   left: 0;
-  background:#234a85ee;
+  background: #234a85ee;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease;
@@ -212,14 +215,17 @@ h2 {
 
 /* ---------- ریسپانسیو ---------- */
 @media (max-width: 1150px) {
+  menu .menu-item {
+    font-size: 17px;
+  }
   .login {
     font-size: 15px;
-    padding: 3px 10px;
+    padding: 6px 10px;
     margin: 16px 3px;
   }
   .search-box {
-    width: 180px;
-    padding: 0 10px;
+    width: 190px;
+    padding: 4px 10px;
   }
   .search-box input {
     width: 80%;
@@ -231,15 +237,20 @@ h2 {
   }
 }
 
-@media (max-width: 1062px) {
+@media (max-width: 950px) {
   h2 {
     display: none;
   }
-}
-@media (max-width: 936px) {
   .login {
     font-size: 15px;
-    padding: 5px 15px;
+    padding: 6px 12px;
+    margin: 16px 3px;
+  }
+}
+@media (max-width: 820px) {
+  .login {
+    font-size: 15px;
+    padding: 10px 17px;
     margin: 16px 3px;
   }
   h2 {
@@ -260,11 +271,9 @@ h2 {
   .mobile-menu-btn {
     display: block;
   }
-
-
 }
 
-@media (max-width: 600px) {
+@media (max-width: 630px) {
   .search-box,
   .search-box input {
     display: none;
@@ -280,7 +289,7 @@ h2 {
 @media (max-width: 170px) {
   .login {
     font-size: 13px;
-    padding: 2px 12px;
+    padding: 2px 10px;
     margin-right: 3px;
   }
 }

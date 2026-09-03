@@ -1,4 +1,3 @@
-
 #subTitle {
   text-align: center;
   width: 20%;
@@ -17,33 +16,33 @@
 
 #subTitle:hover {
   background: linear-gradient(0deg, #9e0202, #e74c3c);
-  color:white;
+  color: white;
   transform: translateY(-0px);
   box-shadow: 0 5px 15px #00000069;
-  /* border: none; */
 }
 
 .offer-product-section {
-  padding: 20px 10px;
+  padding: 20px 20px;
   font-size: 1em;
 }
 
-.offer-product-section .shopping-card {
+.shopping-card {
+  direction: rtl;
   text-align: center;
   box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.24);
-  margin: 10px 15px;
+  margin: 10px 25px;
   border-radius: 2px;
   padding: 10px;
 }
 
-.offer-product-section .shopping-card .img-sec {
+.shopping-card .img-sec {
   position: relative;
 }
 
-.offer-product-section .shopping-card .img-sec img {
+.shopping-card .img-sec img {
   width: 60%;
 }
-.offer-product-section .shopping-card .img-sec .hot-offer {
+.shopping-card .img-sec .hot-offer {
   background: #e74c3c;
   color: white;
   padding: 3px 5px;
@@ -53,19 +52,19 @@
   top: 10px;
   font-size: 0.9em;
 }
-.offer-product-section .shopping-card .img-sec .stars {
+.shopping-card .img-sec .stars {
   position: absolute;
   left: 10px;
   top: 10px;
   color: #f1c40f;
 }
 
-.offer-product-section .shopping-card .title {
+.shopping-card .title {
   color: #333;
   margin: 15px;
 }
 
-.offer-product-section .shopping-card .buttons {
+.shopping-card .buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -113,4 +112,24 @@
 
 .shopping-card .buttons .left .extend-btn .b-icon {
   color: white;
+}
+
+.dragble-list img {
+  width: 70% !important ;
+  margin: auto;
+}
+
+.owl-stage-outer {
+  direction: ltr;
+}
+
+.dragble-list .title {
+  padding: 0px 20px;
+  padding-bottom: 20px;
+}
+
+.dragble-list .title h3 {
+  font-size: 1.2em;
+  color: #444;
+  text-align: center;
 }
