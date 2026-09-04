@@ -3,17 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>سایت</title>
-
+    <title>دیجی روهین | فروشگاه لوازم دیجیتال</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/heroSection.css" />
-    <link rel="stylesheet" href="styles/flexboxgrid.css" />
-    <link rel="stylesheet" href="styles/footer.css" />
-    <link rel="stylesheet" href="styles/product.css" />
-    <link rel="stylesheet" href="styles/owl.carousel.min.css" />
-    <link rel="stylesheet" href="styles/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="styles/home/header.css" />
+    <link rel="stylesheet" href="styles/home/heroSection.css" />
+    <link rel="stylesheet" href="styles/home/flexboxgrid.css" />
+    <link rel="stylesheet" href="styles/home/footer.css" />
+    <link rel="stylesheet" href="styles/home/product.css" />
+    <link rel="stylesheet" href="styles/home/owl.carousel.min.css" />
+    <link rel="stylesheet" href="styles/home/owl.theme.default.min.css" />
 
     <link
       rel="stylesheet"
@@ -23,7 +21,7 @@
 
   <body>
     <header>
-      <div id="fixed-header">
+      <nav id="fixed-header">
         <button class="mobile-menu-btn">
           <i class="fa-solid fa-bars"></i>
         </button>
@@ -62,7 +60,7 @@
             </div>
           </div>
 
-          <span class="menu-item">سبد خرید</span>
+          <a href="./html/shoopingBox.html" class="menu-item">سبد خرید</a>
         </menu>
 
         <!-- جست‌وجو -->
@@ -71,7 +69,7 @@
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </div>
 
-        <a href="./html/login.html" class="login">ورود / ثبت‌نام</a>
+        <a href="./html/user/login.html" class="login">ورود / ثبت‌نام</a>
 
         <div class="mobile-menu">
           <section>
@@ -104,44 +102,74 @@
               </div>
             </div>
 
-            <span class="menu-item">سبد خرید</span>
+            <a href="./html/shoopingBox.html" class="menu-item">سبد خرید</a>
           </section>
         </div>
-      </div>
+      </nav>
       <section class="slider">
         <div class="slides">
           <div class="item show-it" id="slide1">
-            <img
-              loading="lazy"
-              src="./src/images/ales-nesetril-Im7lZjxeLhg-u;nsopl;ash.webp"
-              alt=""
-            />
+            <img loading="lazy" src="./src/images/header1.webp" alt="" />
+            <!-- <h3>لپ‌تاپ‌های تخفیف‌دار و باکیفیت رو از اینجا بخر!</h3> -->
           </div>
           <div class="item" id="slide2">
-            <img
-              loading="lazy"
-              src="./src/images/dell-yNvVnPcurD8-unsplash.webp"
-              alt=""
-            />
+            <img loading="lazy" src="./src/images/header2.webp" alt="" />
           </div>
           <div class="item" id="slide3">
-            <img
-              loading="lazy"
-              src="./src/images/linus-mimietz-gvptKmonylk-unsplash.webp"
-              alt=""
-            />
+            <img loading="lazy" src="./src/images/header3.webp" alt="" />
+          </div>
+          <div class="item" id="slide4">
+            <img loading="lazy" src="./src/images/header4.webp" alt="" />
+          </div>
+          <div class="item" id="slide5">
+            <img loading="lazy" src="./src/images/header5.webp" alt="" />
+          </div>
+          <div class="item" id="slide6">
+            <img loading="lazy" src="./src/images/header6.webp" alt="" />
           </div>
         </div>
         <div class="button">
           <i onclick="setSlide('slide1', 1)" class="fas fa-circle"></i>
           <i onclick="setSlide('slide2', 2)" class="fas fa-circle"></i>
           <i onclick="setSlide('slide3', 3)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide4', 4)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide5', 5)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide6', 6)" class="fas fa-circle"></i>
         </div>
       </section>
     </header>
     <main>
       <section class="offer-product-section">
         <div class="row"></div>
+      </section>
+      <section class="category">
+        <h2 class="catgoryTitle">دستـه‌بنـدی</h2>
+        <nav class="row">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href="#airpod"><img src="./src/images/air2.webp" alt="" /></a>
+            <h4>ایرپاد</h4>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href="#handsfree"><img src="./src/images/h1.jpg" alt="" /></a>
+            <h4>هنذفری‌</h4>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href="#laptop"><img src="./src/images/laptop3.webp" alt="" /></a>
+            <h4>لپ‌تاپ</h4>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href="#headset"><img src="./src/images/p2.webp" alt="" /></a>
+            <h4>هدست</h4>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href="#"><img src="./src/images/phonecover4.webp" alt="" /></a>
+            <h4>قاب گوشی</h4>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+            <a href=""><img src="./src/images/phone2.webp" alt="" /></a>
+            <h4>موبایل</h4>
+          </div>
+        </nav>
       </section>
     </main>
     <footer>
@@ -152,16 +180,16 @@
             <ul>
               <li><a href="#">داستان برند</a></li>
               <li><a href="https://t.me/RohinCodeBot">تماس با ما</a></li>
-              <li><a href="#">حریم خصوصی</a></li>
             </ul>
           </div>
 
           <div class="col">
             <h3>دسته‌بندی</h3>
             <ul>
-              <li><a href="#">لپ‌تاپ</a></li>
-              <li><a href="#">ایرپاد</a></li>
-              <li><a href="#">هدست</a></li>
+              <li><a href="#laptop">لپ‌تاپ</a></li>
+              <li><a href="#handsfree">هنذفری</a></li>
+              <li><a href="#headset">هدست</a></li>
+              <li><a href="#airpod">ایرپاد</a></li>
             </ul>
           </div>
 
@@ -169,31 +197,36 @@
             <h3>پشتیبانی</h3>
             <ul>
               <li><a href="#">پیگیری سفارش</a></li>
-              <li><a href="#">شرایط بازگشت کالا</a></li>
               <li><a href="#">سوالات متداول</a></li>
             </ul>
           </div>
 
           <div class="col">
-            <h3>ما را دنبال کنید</h3>
-            <div class="socials">
-              <a href="https://inistagram.com/RohinCode"><i class="fab fa-instagram"></i></a>
-              <a href="https://t.me/RohinCodeBot"><i class="fa-regular fa-comment"></i></a>
-              <a href="https://t.me/RohinCode"> <i class="fa-brands fa-telegram"></i></a>
-            </div>
+            <h3 class="follow-me">ما را دنبال کنید</h3>
+            <d class="socials">
+              <a href="https://inistagram.com/RohinCode"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://t.me/RohinCodeBot"
+                ><i class="fa-regular fa-comment"></i
+              ></a>
+              <a href="https://t.me/RohinCode">
+                <i class="fa-brands fa-telegram"></i
+              ></a>
+            </d>
           </div>
         </div>
         <div class="footer-bottom">© تمامی حقوق برای فروشگاه محفوظ است.</div>
       </div>
     </footer>
 
-    <script src="scripts/header.js"></script>
-    <script src="scripts/product.js"></script>
+    <script src="scripts/home/header.js"></script>
+    <script src="scripts/home/product.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
       crossorigin="anonymous"
     ></script>
-    <script src="./scripts/owl.carousel.min.js"></script>
+    <script src="./scripts/home/owl.carousel.min.js"></script>
   </body>
 </html>

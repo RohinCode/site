@@ -1,0 +1,271 @@
+.slider {
+  position: relative;
+  font-size: 1em;
+}
+
+.slider .slides {
+  margin-top: 63px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  overflow: hidden;
+}
+.slider .slides::before {
+  content: "";
+  position: absolute;
+  inset: -2%;
+  background: url("../src//images/joshua-woroniecki-lzh3hPtJz9c-unsplash.webp")
+    center/cover;
+  filter: blur(45px) brightness(33%) saturate(120%);
+  z-index: 0;
+}
+
+.slider .slides .item {
+  display: none;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.slider .slides .show-it {
+  display: block;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+.slider .slides .item img {
+  width: 100%;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.slider .slides .item h3 {
+  position: absolute;
+  right: 60%;
+  top: 15%;
+  border: 2px solid rgba(255, 255, 255, 0.877);
+  font-family: IranSans;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 9px 18px;
+  background: rgba(11, 40, 73, 0.863);
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 13px;
+  transition: all 0.3s ease;
+}
+
+.slider .slides .item h3:hover {
+  background: linear-gradient(
+    0deg,
+    rgba(9, 34, 63, 0.863),
+    rgba(15, 64, 119, 0.863)
+  );
+  box-shadow: 0 5px 15px #fcfcfc69;
+  transform: translateY(-2px);
+}
+
+.slider .button {
+  position: absolute;
+  bottom: 30px;
+  left: 60px;
+  z-index: 1;
+}
+
+.slider .button i {
+  color: rgb(241, 237, 237);
+}
+
+.slider .button i:hover {
+  color: rgba(218, 217, 217, 0.562);
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 1329px) {
+  .slider .button {
+    bottom: 50px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: 50px;
+  }
+}
+@media (max-width: 1257px) {
+  .slider {
+    height: 480px;
+  }
+  .slider .button {
+    bottom: 70px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: 32px;
+  }
+}
+@media (max-width: 1128px) {
+  .slider {
+    height: 460px;
+  }
+  .slider .button {
+    bottom: 80px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 1155px) {
+  .slider .button {
+    bottom: 60px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 1040px) {
+  .slider {
+    height: 410px;
+  }
+  .slider .button {
+    bottom: 20px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: 2px;
+  }
+  .slider .slides .item h3 {
+    right: 50%;
+  }
+}
+@media (max-width: 935px) {
+  .slider {
+    height: 400px;
+  }
+  .slider .button {
+    bottom: 25px;
+    left: 60px;
+  }
+  .slider .slides {
+    margin-top: -3px;
+  }
+  .slider .slides .item h3 {
+    right: 50%;
+  }
+}
+@media (max-width: 770px) {
+  .slider {
+    height: 350px;
+  }
+
+  .slider .slides {
+    min-height: 300px;
+    margin-top: 60px;
+  }
+
+  .slider .slides .item img {
+    width: 100%;
+  }
+
+  .slider .button {
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .slider .button i {
+    color: rgb(32, 31, 31);
+  }
+
+  .slider .button i:hover {
+    color: rgba(51, 50, 50, 0.562);
+    cursor: pointer;
+  }
+}
+@media (max-width: 620px) {
+  .slider {
+    height: 300px;
+  }
+
+  .slider .slides {
+    min-height: 300px;
+    margin-top: 40px;
+  }
+  .slider .button {
+    bottom: 10px;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 530px) {
+  .slider {
+    height: 300px;
+  }
+  .slider .slides {
+    min-height: 300px;
+    margin-top: 20px;
+  }
+
+  .slider .slides .item img {
+    width: 100%;
+  }
+
+  .slider .button {
+    bottom: 15px;
+  }
+
+  .slider .button i {
+    font-size: 15px;
+  }
+}
+@media (max-width: 490px) {
+  .slider {
+    height: 320px;
+  }
+  .slider .slides {
+    margin-top: 64px;
+  }
+
+  .slider .button {
+    bottom: 1px;
+  }
+}
+@media (max-width: 401px) {
+  .slider {
+    height: 300px;
+  }
+  .slider .slides {
+    margin-top: 45px;
+  }
+
+  .slider .button {
+    bottom: 6px;
+  }
+}
+@media (max-width: 340px) {
+  .slider {
+    height: 280px;
+  }
+  .slider .slides {
+    margin-top: 26px;
+  }
+
+  .slider .button {
+    bottom: 3px;
+  }
+}
+@media (max-width: 309px) {
+  .slider {
+    height: 260px;
+  }
+  .slider .slides {
+    margin-top: 20px;
+  }
+
+  .slider .button {
+    bottom: 0px;
+  }
+}

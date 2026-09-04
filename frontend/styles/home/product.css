@@ -1,0 +1,185 @@
+#subTitle {
+  text-align: center;
+  width: 20%;
+  margin: 50px auto;
+  margin-bottom: 0;
+  border: 2px solid #e74c3c;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 9px 18px;
+  background: transparent;
+  color: #e74c3c;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#subTitle:hover {
+  background: linear-gradient(0deg, #9e0202, #e74c3c);
+  color: white;
+  transform: translateY(-0px);
+  box-shadow: 0 5px 15px #00000069;
+}
+
+.offer-product-section {
+  padding: 90px 15px;
+  font-size: 1em;
+  border-color: red;
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.shopping-card {
+  direction: rtl;
+  text-align: center;
+  box-shadow: 0 2px 8px 0px rgba(0, 0, 0, 0.24);
+  margin: 10px 15px;
+  border-radius: 2px;
+  padding: 5px;
+}
+
+.shopping-card .img-sec {
+  position: relative;
+}
+
+.shopping-card .img-sec img {
+  width: 60%;
+}
+.shopping-card .img-sec .hot-offer {
+  background: #e74c3c;
+  color: white;
+  padding: 3px 5px;
+  border-radius: 5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 0.9em;
+}
+.shopping-card .img-sec .stars {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #f1c40f;
+}
+
+.shopping-card .title {
+  color: #333;
+  margin: 15px;
+}
+
+.shopping-card .buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+}
+
+.shopping-card .buttons .right .price {
+  color: #3f3f3f;
+  font-weight: bold;
+}
+.shopping-card .buttons .left {
+  display: flex;
+}
+
+.shopping-card .buttons .left .extend-btn {
+  display: flex;
+  margin-left: 5px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(45, 98, 167);
+  width: 40px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.shopping-card .buttons .left .extend-btn:hover {
+  width: 80px;
+}
+
+.shopping-card .buttons .left .extend-btn:hover .b-text {
+  display: block;
+}
+
+.shopping-card .buttons .left .extend-btn a {
+  color: white;
+  text-decoration: none;
+}
+
+.shopping-card .buttons .left .extend-btn .b-text {
+  color: white;
+  display: none;
+  transition: 0.5s;
+}
+
+.shopping-card .buttons .left .extend-btn .b-icon {
+  color: white;
+}
+
+.dragble-list img {
+  width: 70% !important ;
+  margin: auto;
+}
+
+.owl-stage-outer {
+  direction: ltr;
+}
+
+.dragble-list .title {
+  padding: 0px 20px;
+  padding-bottom: 20px;
+}
+
+.dragble-list .title h3 {
+  font-size: 1.2em;
+  color: #444;
+  text-align: center;
+}
+
+/*دسته بندی*/
+.category {
+  margin: 70px 0;
+
+}
+.category nav {
+  display: flex;
+  align-items: center;
+  border: 2px solid #444;
+  margin: 0 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+.catgoryTitle {
+  font-weight: normal;
+  padding: 10px 40px;
+}
+
+.category nav div a img {
+
+
+  width: 100px;
+  height: 100px;
+}
+.category nav div h4 {
+  font-weight:normal;
+  cursor: pointer;
+}
+.category nav div {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 660px) {
+  #subTitle {
+    width: 40%;
+  }
+}
+@media (max-width: 370px) {
+  #subTitle {
+    width: 50%;
+  }
+}

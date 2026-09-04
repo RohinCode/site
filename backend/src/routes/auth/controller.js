@@ -11,7 +11,16 @@ module.exports = new (class extends controller {
       return this.response({
         res,
         code: 400,
-        message: "this user already registered",
+        message: "این کاربر قبلا ثبت‌نام کرده",
+      });
+    }
+
+    user = await this.User.findOne({ name: req.body.name });
+    if (user) {
+      return this.response({
+        res,
+        code: 400,
+        message: "این نام کاربری قبلا انتخاب شده",
       });
     }
     // const {email, name, password} = req.body;
@@ -25,18 +34,18 @@ module.exports = new (class extends controller {
 
     this.response({
       res,
-      message: "the user successfuly registered",
+      message: "کاربر با موفقیت وارد شد",
       data: _.pick(user, ["_id", "name", "email"]),
     });
   }
 
   async login(req, res) {
-    const user = await this.User.findOne({ email: req.body.email });
+    const user = await this.User.findOne({ name: req.body.name });
     if (!user) {
       return this.response({
         res,
         code: 400,
-        message: "invalid eamil or password",
+        message: "ایمیل یا نام کاربری صحیح نیست",
       });
     }
     const isValid = await bcrypt.compare(req.body.password, user.password);
@@ -44,10 +53,10 @@ module.exports = new (class extends controller {
       return this.response({
         res,
         code: 400,
-        message: "invalid eamil or password",
+        message: "ایمیل یا نام کاربری صحیح نیست",
       });
     }
     const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
-    this.response({ res, message: "successfuly logged in", data: { token } });
+    this.response({ res, message: "ورود موفقت آمیز", data: { token } });
   }
 })();
