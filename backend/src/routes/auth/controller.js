@@ -32,10 +32,11 @@ module.exports = new (class extends controller {
 
     await user.save();
 
+    const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
     this.response({
       res,
       message: "کاربر با موفقیت وارد شد",
-      data: _.pick(user, ["_id", "name", "email"]),
+      data: { token, user: _.pick(user, ["_id", "name", "email"]) },
     });
   }
 
@@ -45,7 +46,7 @@ module.exports = new (class extends controller {
       return this.response({
         res,
         code: 400,
-        message: "ایمیل یا نام کاربری صحیح نیست",
+        message: "نام کاربری یا رمز عبور صحیح نیست",
       });
     }
     const isValid = await bcrypt.compare(req.body.password, user.password);
@@ -53,10 +54,48 @@ module.exports = new (class extends controller {
       return this.response({
         res,
         code: 400,
-        message: "ایمیل یا نام کاربری صحیح نیست",
+        message: "نام کاربری یا رمز عبور صحیح نیست",
       });
     }
     const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
     this.response({ res, message: "ورود موفقت آمیز", data: { token } });
+  }
+
+  async adminLogin(req, res) {
+    const user = await this.User.findOne({ name: req.body.name });
+
+    if (!user) {
+      return this.response({
+        res,
+        code: 400,
+        message: "نام کاربری یا رمز عبور صحیح نیست",
+      });
+    }
+
+    const isValid = await bcrypt.compare(req.body.password, user.password);
+
+    if (!isValid) {
+      return this.response({
+        res,
+        code: 400,
+        message: "نام کاربری یا رمز عبور صحیح نیست",
+      });
+    }
+
+    if (!user.isadmin) {
+      return this.response({
+        res,
+        code: 403,
+        message: "داداش. ادمین نیستی",
+      });
+    }
+
+    const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
+
+    this.response({
+      res,
+      message: "ورود ادمین موفقیت آمیز",
+      data: { token },
+    });
   }
 })();

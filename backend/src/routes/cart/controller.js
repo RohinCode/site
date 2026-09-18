@@ -1,0 +1,69 @@
+const controller = require("../controller");
+
+module.exports = new (class extends controller {
+  async addToCart(req, res) {
+    const { productId } = req.body;
+
+    const product = await this.Product.findById(productId);
+
+    if (!product) {
+      return this.response({
+        res,
+        code: 404,
+        message: "محصولی پیدا نشد",
+      });
+    }
+
+    let cart = await this.Cart.findOne({
+      user: req.user._id,
+    });
+
+    if (!cart) {
+      cart = new this.Cart({
+        user: req.user._id,
+        products: [productId],
+      });
+    } else {
+      // اینجا بررسی کن
+      const alreadyExists = cart.products.some(
+        (id) => id.toString() === productId,
+      );
+
+      if (alreadyExists) {
+        return this.response({
+          res,
+          code: 400,
+          message: "این محصول قبلاً در سبد خرید است",
+        });
+      }
+      cart.products.push(productId);
+    }
+
+    await cart.save();
+
+    this.response({
+      res,
+      message: "محصول به سبد خرید اضافه شد",
+      data: cart,
+    });
+  }
+
+  async getProdoct(req, res) {
+    const product = await this.Cart.findOne({ user: req.user.id }).populate([
+      "products",
+      "user",
+    ]);
+    if (!product) {
+      return this.response({
+        res,
+        code: 404,
+        message: "not found",
+      });
+    }
+    this.response({
+      res,
+      data: product,
+      message: "ok",
+    });
+  }
+})();

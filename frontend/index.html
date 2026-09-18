@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>دیجی روهین | فروشگاه لوازم دیجیتال</title>
     <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="styles/home/header.css" />
-    <link rel="stylesheet" href="styles/home/heroSection.css" />
+    <link rel="stylesheet" href="styles/home/headerAndFooter.css" />
     <link rel="stylesheet" href="styles/home/flexboxgrid.css" />
-    <link rel="stylesheet" href="styles/home/footer.css" />
     <link rel="stylesheet" href="styles/home/product.css" />
     <link rel="stylesheet" href="styles/home/owl.carousel.min.css" />
     <link rel="stylesheet" href="styles/home/owl.theme.default.min.css" />
@@ -143,7 +141,7 @@
         <div class="row"></div>
       </section>
       <section class="category">
-        <h2 class="catgoryTitle">دستـه‌بنـدی</h2>
+        <h2 id="catgoryTitle" class="catgoryTitle">دستـه‌بنـدی</h2>
         <nav class="row">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
             <a href="#airpod"><img src="./src/images/air2.webp" alt="" /></a>
@@ -218,6 +216,24 @@
         </div>
         <div class="footer-bottom">© تمامی حقوق برای فروشگاه محفوظ است.</div>
       </div>
+      <nav class="bottom-nav">
+        <a href="#" class="active">
+          <i class="fa-solid fa-house-chimney"></i>
+          خانه
+        </a>
+        <a href="#catgoryTitle">
+          <i class="fa-solid fa-table-cells-large"></i>
+          دسته‌بندی
+        </a>
+        <a href="./html/shoopingBox.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          سبد خرید
+        </a>
+        <a href="./html/user/user.html">
+          <i class="fa-solid fa-user"></i>
+          پروفایل
+        </a>
+      </nav>
     </footer>
 
     <script src="scripts/home/header.js"></script>
@@ -228,5 +244,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="./scripts/home/owl.carousel.min.js"></script>
+    <script src="scripts/home/footer.js">
+
+    </script>
   </body>
 </html>

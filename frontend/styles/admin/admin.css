@@ -1,0 +1,246 @@
+:root {
+  --color-bg-2: rgba(0, 0, 0, 0.03);
+  --color-icon-1: #2980b9;
+  --color-text-header: #444;
+  --color-text-header-2: #2980b9;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+}
+
+.right {
+  min-height: 800px;
+}
+
+.menu-btns .item {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px 30px 20px 0px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu-btns .item:hover {
+  background-color: --color-bg-5;
+}
+
+.menu-btns .item i {
+  font-size: 1.4em;
+  color: var(--color-icon-1);
+}
+
+.menu-btns .item span {
+  margin-right: 25px;
+  color: var(--color-text-header);
+}
+
+.menu-btns .item-active {
+  background-color: var(--color-bg-2);
+}
+
+.menu-btns .item-active span {
+  color: var(--color-text-header-2);
+}
+
+.left {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 35px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* بخش توضیحات */
+.explain {
+  margin-bottom: 25px;
+}
+
+.explain h3 {
+  margin-bottom: 15px;
+  color: #222;
+  font-size: 20px;
+}
+
+.explain ul {
+  padding-right: 20px;
+  color: #666;
+  line-height: 2;
+  font-size: 14px;
+}
+
+/* فرم */
+.left form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ورودی‌ها */
+.left form input[type="text"],
+.left form input[type="number"],
+.left form input[type="file"] {
+  width: 80%;
+  padding: 13px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+/* حالت انتخاب ورودی */
+.left form input:focus {
+  border-color: #2563eb;
+}
+
+/* چک‌باکس‌ها */
+.left form label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #444;
+  cursor: pointer;
+}
+
+.left form input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+/* دکمه ثبت */
+.left form input[type="submit"] {
+  padding: 13px;
+  border: none;
+  border-radius: 8px;
+  background: #1e4caf;
+  color: white;
+  font-family: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.left form input[type="submit"]:hover {
+  background: #0c266d;
+}
+
+.left form input[type="file"]::file-selector-button {
+  cursor: pointer;
+  padding: 10px;
+  color: white;
+  font-family: inherit;
+  background: #15368bb4;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.left form input[type="file"]:valid::file-selector-button {
+  background: #1c3d96;
+}
+
+/* ===================== Responsive ====================== */
+
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .right {
+    min-height: auto;
+    display: block;
+  }
+
+  .user-info {
+    padding: 15px;
+  }
+
+  .menu-btns {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .menu-btns .item {
+    flex: 1 0 auto;
+    justify-content: center;
+    padding: 15px 20px;
+  }
+
+  .menu-btns .item span {
+    margin-right: 10px;
+  }
+
+  .left {
+    width: calc(100% - 30px);
+    max-width: 600px;
+    margin: 25px auto;
+    padding: 25px;
+    box-sizing: border-box;
+  }
+
+  .left form input[type="text"],
+  .left form input[type="number"],
+  .left form input[type="file"] {
+    width: 100%;
+  }
+}
+
+/* موبایل */
+@media (max-width: 600px) {
+  .menu-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: visible;
+  }
+
+  .menu-btns .item {
+    padding: 15px 10px;
+    justify-content: center;
+  }
+
+  .menu-btns .item i {
+    font-size: 1.1em;
+  }
+
+  .menu-btns .item span {
+    margin-right: 8px;
+    font-size: 13px;
+  }
+
+  .left {
+    width: calc(100% - 20px);
+    margin: 15px auto;
+    padding: 20px 15px;
+  }
+
+  .explain h3 {
+    font-size: 17px;
+  }
+
+  .explain ul {
+    font-size: 13px;
+    padding-right: 18px;
+  }
+
+  .left form {
+    gap: 12px;
+  }
+
+  .left form label {
+    font-size: 13px;
+  }
+
+  .left form input[type="submit"] {
+    width: 100%;
+  }
+}

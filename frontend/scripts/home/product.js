@@ -1,12 +1,12 @@
+const token = localStorage.getItem("disjiRohinToken");
+const domin = "http://localhost:3000";
 async function getSuggestProducts() {
   const productsContainer = document.querySelector(
     ".offer-product-section .row",
   );
 
   try {
-    const response = await fetch(
-      "http://localhost:3000/api/product/OfferProducts",
-    );
+    const response = await fetch(`${domin}/api/product/OfferProducts`);
 
     if (response.ok) {
       const result = await response.json();
@@ -140,13 +140,53 @@ function createProductCart(product, shoppingCard) {
         </div>
         <div class="b-text" >خرید </div>`;
   left.appendChild(extendBtn);
+  extendBtn.addEventListener("click", async () => {
+    try {
+      const response = await fetch(`${domin}/api/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({
+          productId: product._id,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.log(result.message);
+        setInterval(() => {
+          extendBtn.innerHTML = `
+      <div class="b-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <div class="b-text">قبلا اضافه شده</div>`;
+        }, 100);
+        return;
+      }
+      setInterval(() => {
+        extendBtn.innerHTML = `
+      <div class="b-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <div class="b-text" >اضافه شد</div>`;
+      }, 100);
+
+      console.log("محصول با موفقیت به سبد اضافه شد");
+    } catch (error) {
+      console.log(error);
+      if (!token) {
+        shoppingCard.innerHTML = "برای سفارش باید وارد شوید";
+      }
+    }
+  });
 }
 
 async function getCategoryProducts(category, title) {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/product/${category}`,
-    );
+    const response = await fetch(`${domin}/api/product/${category}`);
 
     if (!response.ok) {
       console.log("no");

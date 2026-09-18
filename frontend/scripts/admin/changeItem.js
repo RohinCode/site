@@ -1,43 +1,21 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../styles/main.css" />
-    <link rel="stylesheet" href="../../styles/admin/admin.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <title>پروفایل ادمین</title>
-  </head>
-  <body>
-    <main>
-      <div class="right">
-        <div class="menu-btns">
-          <div class="item item-active" data-page="add-product">
-            <i class="fas fa-bell"></i>
-            <span>اضافه کردن محصول</span>
-          </div>
+const items = document.querySelectorAll(".menu-btns .item");
+const left = document.querySelector(".left");
 
-          <div class="item" data-page="orders">
-            <i class="fas fa-bell"></i>
-            <span>سفارش ها</span>
-          </div>
+items.forEach((item) => {
+  item.addEventListener("click", () => {
+    const page = item.dataset.page;
 
-          <div class="item" data-page="reports">
-            <i class="fas fa-bell"></i>
-            <span>گزارش ها</span>
-          </div>
+    // تغییر آیتم فعال
+    items.forEach((item) => {
+      item.classList.remove("item-active");
+    });
 
-          <div class="item" data-page="support">
-            <i class="fas fa-bell"></i>
-            <span>پشتیبانی</span>
-          </div>
-        </div>
-      </div>
-      <div class="left">
-        <div class="explain">
+    item.classList.add("item-active");
+
+    // تغییر محتوای بخش چپ
+    if (page === "add-product") {
+      left.innerHTML = `
+                <div class="explain">
           <h3>چیزهایی که باید قبل از ایجاد محصول بدانید</h3>
 
           <ul>
@@ -104,10 +82,28 @@
           />
           <input type="submit" value="ثبت محصول" />
         </form>
-      </div>
-    </main>
-    <script src="../../scripts/admin/admin.js"></script>
-    <script src="../../scripts/admin/addproduct.js"></script>
-    <script src="../../scripts/admin/changeItem.js"></script>
-  </body>
-</html>
+      `;
+    }
+
+    if (page === "orders") {
+      left.innerHTML = `<h2>سفارش‌ها</h2>
+
+        <p>اینجا سفارش‌های کاربران نمایش داده می‌شود.</p>
+      `;
+    }
+
+    if (page === "reports") {
+      left.innerHTML = ` <h2>گزارش‌ها</h2>
+
+        <p>اینجا گزارش‌های فروش نمایش داده می‌شود.</p>
+        `;
+    }
+
+    if (page === "support") {
+      left.innerHTML = `<h2>پشتیبانی</h2>
+
+        <p>اینجا بخش پشتیبانی قرار می‌گیرد.</p>
+      `;
+    }
+  });
+});

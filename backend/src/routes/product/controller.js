@@ -1,6 +1,6 @@
 const controller = require("../controller");
 const _ = require("lodash");
-
+const domin = "http://localhost:3000";
 module.exports = new (class extends controller {
   async OfferProducts(req, res) {
     let products = await this.Product.find({ isSuggest: true }).limit(8);
@@ -36,22 +36,20 @@ module.exports = new (class extends controller {
       });
     }
 
-    product = new this.Product(
-      _.pick(req.body, [
-        "name",
-        "star",
-        "price",
-        "img",
-        "hotOffer",
-        "isSuggest",
-        "category",
-      ]),
-    );
+    product = new this.Product({
+      name: req.body.name,
+      star: req.body.star,
+      price: req.body.price,
+      category: req.body.category,
+      hotOffer: req.body.hotOffer === "on",
+      isSuggest: req.body.isSuggest === "on",
+      img: `${domin}/images/${req.file.filename}`,
+    });
     await product.save();
 
     this.response({
       res,
-      message: "the product successfuly created",
+      message: "محصول با موفقیت ساخته شد",
       data: _.pick(product, [
         "_id",
         "name",

@@ -1,0 +1,94 @@
+:root {
+  --navy: #0b1b34;
+  --blue: #1e3a6e;
+  --bg: #f4f6fa;
+  --border: #e1e6ee;
+}
+
+@font-face {
+  font-family: IranSans;
+  src: url(../../src/fonts/IranSans/IranSans.ttf);
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: IranSans;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+}
+
+div {
+  background: rgb(243, 242, 242);
+  width: 100%;
+  max-width: 380px;
+  margin: 20px;
+  padding: 28px 22px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#login-form input[type="text"] {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin: 10px 0;
+  font-size: 14px;
+  color: var(--navy);
+  background: var(--bg);
+  width: 100%;
+}
+
+#login-form input[type="text"]::placeholder {
+  color: #5c6b85;
+}
+
+#login-form input[type="text"]:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: rgb(243, 242, 242);
+}
+
+#login-form input[type="submit"] {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  background: var(--blue);
+  color: rgb(243, 242, 242);
+  border: none;
+  border-radius: 6px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#login-form input[type="submit"]:hover {
+  background: #173058;
+}
+div h4 {
+  display: inline;
+  margin: 3px;
+}
+div h2 {
+  margin: 0 auto;
+}
+div h4 a {
+  width: 55px;
+  color: #0b1b34;
+  text-decoration: none;
+}
+div h4 a:hover {
+  color: #3e79d8;
+  text-decoration: underline;
+}

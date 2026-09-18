@@ -95,7 +95,7 @@
   transition: 0.5s;
 }
 .shopping-card .buttons .left .extend-btn:hover {
-  width: 80px;
+  width: 100px;
 }
 
 .shopping-card .buttons .left .extend-btn:hover .b-text {
