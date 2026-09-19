@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/user/user.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -11,8 +12,83 @@
     <title>پروفایل</title>
   </head>
   <body>
-    <main>
-      
+    <main class="profile">
+      <aside class="profile-menu">
+        <div class="profile-user">
+          <div class="profile-avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+          <h3>روهین</h3>
+          <span>کاربر عادی</span>
+        </div>
+
+        <nav>
+          <button class="profile-menu-item active">
+            <i class="fa-solid fa-user"></i>
+            پروفایل
+          </button>
+
+          <button class="profile-menu-item">
+            <i class="fa-solid fa-box"></i>
+            سفارش‌های من
+          </button>
+          <button class="profile-menu-item logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            خروج از حساب
+          </button>
+        </nav>
+      </aside>
+
+      <section class="profile-content">
+        <div class="profile-title">
+          <h1>سلام، روهین</h1>
+        </div>
+
+        <div class="account-card">
+          <div class="card-title">
+            <h2>اطلاعات حساب</h2>
+
+            <button>
+              <i class="fa-solid fa-pen"></i>
+              ویرایش
+            </button>
+          </div>
+
+          <div class="account-info">
+            <div>
+              <span>نام</span>
+              <strong>روهین</strong>
+            </div>
+
+            <div>
+              <span>شماره تلفن</span>
+              <strong>09xxxxxxx75</strong>
+            </div>
+
+            <div>
+              <span>ایمیل</span>
+              <strong>example@gmail.com</strong>
+            </div>
+            <div>
+              <span>آدرس</span>
+              <strong>Iran, Tehran</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-stats">
+          <div class="stat-card">
+            <i class="fa-solid fa-box"></i>
+            <div>
+              <span>سفارش‌ها</span>
+              <strong>4</strong>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
     </main>
     <footer>
       <nav class="bottom-nav">
@@ -34,7 +110,7 @@
         </a>
       </nav>
     </footer>
-    <script src="../../scripts/auth/user.js"></script>
+    <!-- <script src="../../scripts/auth/user.js"></script> -->
     <script src="../../scripts/home/footer.js"></script>
   </body>
 </html>

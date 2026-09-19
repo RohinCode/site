@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/home/flexboxgrid.css" />
     <link rel="stylesheet" href="../../styles/admin/admin.css" />
     <link
       rel="stylesheet"
@@ -15,99 +16,76 @@
     <main>
       <div class="right">
         <div class="menu-btns">
-          <div class="item item-active" data-page="add-product">
-            <i class="fas fa-bell"></i>
+          <div class="item item-active" data-page="profile">
+            <i class="fa-solid fa-user"></i>
+            <span>پروفایل ادمین</span>
+          </div>
+
+          <div class="item" data-page="add-product">
+            <i class="fa-solid fa-layer-group"></i>
             <span>اضافه کردن محصول</span>
           </div>
 
           <div class="item" data-page="orders">
-            <i class="fas fa-bell"></i>
+            <i class="fa-solid fa-cart-shopping"></i>
             <span>سفارش ها</span>
           </div>
 
           <div class="item" data-page="reports">
-            <i class="fas fa-bell"></i>
+            <i class="fa-solid fa-message"></i>
             <span>گزارش ها</span>
           </div>
 
           <div class="item" data-page="support">
-            <i class="fas fa-bell"></i>
+            <i class="fa-solid fa-headset"></i>
             <span>پشتیبانی</span>
           </div>
         </div>
       </div>
       <div class="left">
-        <div class="explain">
-          <h3>چیزهایی که باید قبل از ایجاد محصول بدانید</h3>
+        <section class="adminProfile">
+          <h1>
+            سلام
+          </h1>
+
+          <p>
+            این صفحه برای کنترل و مدیریت سایت هست و فقط ادمین‌ها می‌تونن واردش
+            بشن.
+            <br />
+            از اینجا می‌تونی بخش‌های مختلف سایت رو مدیریت کنی:
+          </p>
 
           <ul>
-            <li>حتما باید تمام ورودی‌ها را پر کنید</li>
-            <li>مطمئن باشید که محصول وارد شده را در انبار دارید</li>
             <li>
-              تصویر محصول باید با فرمت webp، jpg یا png باشد. پیشنهاد می‌کنیم که
-              از فرمت webp استفاده کنید
+              <i class="fa-solid fa-box"></i>
+              <span>اضافه، ویرایش و حذف محصول</span>
             </li>
-            <li>تصویر انتخاب‌شده باید مربوط به همان محصول باشد.</li>
-            <li>قبل از ثبت، اطلاعات محصول را بررسی کنید.</li>
+
+            <li>
+              <i class="fa-solid fa-layer-group"></i>
+              <span>انتخاب دسته‌بندی‌ها برای نمایش</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>دیدن سفارش‌های ثبت‌شده</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-message"></i>
+              <span>گزارش‌های دریافتی (دیدن پیام‌های کاربران)</span>
+            </li>
+
+            <li>
+              <i class="fa-solid fa-headset"></i>
+              <span>پشتیبانی (تماس با من)</span>
+            </li>
           </ul>
-        </div>
-
-        <form id="productForm">
-          <input
-            name="name"
-            type="text"
-            placeholder="نام محصول را وارد کنید"
-            required
-          />
-
-          <input
-            name="star"
-            type="number"
-            placeholder="امتیاز محصول را وارد کنید"
-            min="0"
-            max="6"
-            step="1"
-            required
-          />
-
-          <input
-            name="price"
-            type="text"
-            placeholder="قیمت محصول را وارد کنید"
-            required
-          />
-
-          <input
-            name="category"
-            type="text"
-            placeholder="دسته بندی را وارد کنید"
-            required
-          />
-
-          <label>
-            <input type="checkbox" name="hotOffer" />
-            آیا این محصول پیشنهاد ویژه است؟
-          </label>
-
-          <label>
-            <input type="checkbox" name="isSuggest" />
-            آیا این محصول در بخش پیشنهادات قرار بگیرد؟
-          </label>
-
-          <p style="margin: 0 auto">آپلود تصویر:</p>
-          <input
-            type="file"
-            value="انتخاب تصویر"
-            name="img"
-            accept=".webp,.jpg,.png"
-            required
-          />
-          <input type="submit" value="ثبت محصول" />
-        </form>
+        </section>
       </div>
     </main>
     <script src="../../scripts/admin/admin.js"></script>
-    <script src="../../scripts/admin/addproduct.js"></script>
+    <!-- <script src="../../scripts/admin/addproduct.js"></script> -->
     <script src="../../scripts/admin/changeItem.js"></script>
   </body>
 </html>

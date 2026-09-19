@@ -5,13 +5,12 @@ const validator = require("./validator");
 const upload = require("../../middlewares/upload");
 const { isLoggined, isAdmin } = require("../../middlewares/auth");
 
-
 router.get("/OfferProducts", controller.OfferProducts);
 router.post(
   "/createProduct",
-  upload.single("img"),
   isLoggined,
   isAdmin,
+  upload.single("img"),
   validator.createProductValidator(),
   controller.validate,
   controller.createProduct,

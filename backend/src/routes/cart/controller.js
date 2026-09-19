@@ -66,4 +66,33 @@ module.exports = new (class extends controller {
       message: "ok",
     });
   }
+
+  async isComplate(req, res) {
+    const cart = await this.Cart.findOne({
+      user: req.user.id,
+    });
+
+    if (!cart) {
+      return this.response({
+        res,
+        code: 404,
+        message: "سبد خرید پیدا نشد",
+      });
+    }
+
+    const registered = new this.Registered({
+      user: cart.user,
+      products: cart.products,
+    });
+
+    cart.products = [];
+
+    await registered.save();
+    await cart.save();
+
+    this.response({
+      res,
+      message: "ثبت شد",
+    });
+  }
 })();

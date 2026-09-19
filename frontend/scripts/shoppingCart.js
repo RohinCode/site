@@ -58,18 +58,22 @@ async function start() {
 
     // توکن نامعتبر / منقضی
     if (!response.ok) {
-      localStorage.removeItem("disjiRohinToken");
-      window.location.href = "./user/login.html";
+      if (result.message === "invalid token") {
+        localStorage.removeItem("disjiRohinToken");
+        window.location.href = "./user/login.html";
+      }
+      console.log(result);
+
       return;
     }
 
-    createCart(result.data);
+    if(result.data.products.length===0) return
 
+    createCart(result.data);
   } catch (error) {
     console.log(error);
   }
 }
-
 
 function createCart(cart) {
   const productsContainer = document.createElement("div");
@@ -133,11 +137,116 @@ function createCart(cart) {
 
     </div>
 
-    <button>ادامه</button>
-  `;
+    <button id="complateShopping">ادامه</button>
+    `;
 
   main.appendChild(productsContainer);
   main.appendChild(pay);
+
+  const complateBtn = document.querySelector("#complateShopping");
+  complateBtn.addEventListener("click", async () => {
+    if (!token) {
+      window.location.href = "./user/login.html";
+      return;
+    }
+
+    try {
+      const response = await fetch(`${domin}/api/user/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.log(result);
+        return;
+      }
+
+      if (!result.data.address) {
+        console.log(result.data);
+        return;
+      }
+
+      innerhtml();
+    } catch (error) {
+      console.log(error);
+    }
+  });
 }
 
 start();
+
+function innerhtml() {
+  document.body.style.display = "flex";
+  document.body.style.justifyContent = "center";
+  document.body.style.alignItems = "center";
+  document.body.style.textAlign = "center";
+
+  document.body.innerHTML = `
+  <div class="order-notice">
+    <div class="notice-icon">
+      <i class="fa-solid fa-circle-info"></i>
+    </div>
+
+    <h2>نکات مهم ثبت سفارش</h2>
+
+    <ul>
+      <li>پرداخت فقط و فقط درب منزل و هنگام تحویل محصول انجام می‌شود.</li>
+      <li>محصول به آدرسی که قبلاً در حساب کاربری خود ثبت کرده‌اید ارسال می‌شود.</li>
+      <li>ارسال محصول معمولاً حدود ۲ تا ۳ روز کاری طول می‌کشد.</li>
+      <li>لطفاً قبل از ثبت سفارش، از صحیح بودن آدرس و اطلاعات خود مطمئن شوید.</li>
+    </ul>
+
+    <div class="notice-warning">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>
+        لطفاً قبل از ثبت نهایی سفارش، اطلاعات خود را با دقت بررسی کنید.
+      </span>
+    </div>
+
+    <button id="continueBtn">
+      تأیید و ادامه
+    </button>
+  </div>
+`;
+  document
+    .querySelector("#continueBtn")
+    .addEventListener("click", async () => {
+            try {
+        const response = await fetch(`${domin}/api/cart/isComplate`, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.log(result);
+          return;
+        }
+
+        document.body.innerHTML=`<div class="order-notice">
+    <div class="notice-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+
+    <h2>ثبت شد</h2>
+
+    <ul>
+      <li>پرداخت فقط و فقط درب منزل و هنگام تحویل محصول انجام می‌شود.</li>
+      <li>محصول به آدرسی که قبلاً در حساب کاربری خود ثبت کرده‌اید ارسال می‌شود.</li>
+      <li>ارسال محصول معمولاً حدود ۲ تا ۳ روز کاری طول می‌کشد.</li>
+    </ul>
+        <button class="btn"><a href=".././index.html">برگشت به صفحه‌ی اصلی</a></button>
+  </div>`
+
+      } catch (error) {
+        console.log(error);
+      }
+    });
+}

@@ -11,6 +11,11 @@ body {
   height: 100dvh;
 }
 
+*::selection{
+  background: #111cb9;
+  color: white;
+}
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;

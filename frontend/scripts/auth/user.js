@@ -14,7 +14,7 @@ async function start() {
       },
     });
     if (!response.ok) {
-      localStorage.removeItem("disjiRohinToken");
+      // localStorage.removeItem("disjiRohinToken");
       window.location.href = "./login.html";
       return false;
     }

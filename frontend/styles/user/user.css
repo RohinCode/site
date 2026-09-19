@@ -1,0 +1,304 @@
+.profile {
+  direction: rtl;
+  display: flex;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* منوی پروفایل */
+.profile-menu {
+  width: 250px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 15px;
+  padding: 20px;
+  height: fit-content;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.profile-user {
+  text-align: center;
+  padding-bottom: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #285392;
+  color: #fff;
+  font-size: 26px;
+}
+
+.profile-user h3 {
+  margin: 5px 0;
+  color: #222;
+  font-size: 18px;
+}
+
+.profile-user span {
+  color: #888;
+  font-size: 13px;
+}
+
+/* منوی دکمه‌ها */
+.profile-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.profile-menu-item {
+  width: 100%;
+  padding: 13px 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+
+  color: #555;
+  font-family: inherit;
+  font-size: 14px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.profile-menu-item i {
+  width: 20px;
+  font-size: 16px;
+}
+
+.profile-menu-item:hover {
+  background: #f1f5fa;
+  color: #285392;
+}
+
+.profile-menu-item.active {
+  background: #285392;
+  color: #fff;
+}
+
+/* خروج */
+.profile-menu-item.logout {
+  margin-top: 10px;
+  color: #d33;
+}
+
+.profile-menu-item.logout:hover {
+  background: #fff1f1;
+  color: #d33;
+}
+
+/* محتوای اصلی */
+.profile-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-title {
+  margin-bottom: 25px;
+}
+
+.profile-title h1 {
+  margin: 0;
+  text-align: center;
+  color: #222;
+  font-size: 25px;
+}
+
+/* کارت اطلاعات */
+.account-card {
+  padding: 25px;
+
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 15px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+/* عنوان کارت */
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.card-title h2 {
+  margin: 0;
+  color: #222;
+  font-size: 18px;
+}
+
+/* دکمه ویرایش */
+.card-title button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 9px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #edf3fb;
+  color: #285392;
+
+  font-family: inherit;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card-title button:hover {
+  background: #285392;
+  color: #fff;
+}
+
+/* اطلاعات کاربر */
+.account-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.account-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.account-info span {
+  color: #999;
+  font-size: 13px;
+}
+
+.account-info strong {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* کارت سفارش‌ها */
+.profile-stats {
+  margin-top: 20px;
+}
+
+.stat-card {
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 15px;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.stat-card > i {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #edf3fb;
+  color: #285392;
+
+  font-size: 21px;
+}
+
+.stat-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-card span {
+  color: #888;
+  font-size: 13px;
+}
+
+.stat-card strong {
+  color: #222;
+  font-size: 20px;
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 0 12px;
+  }
+
+  .profile-menu {
+    width: auto;
+  }
+
+  .profile-menu nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-menu-item.logout {
+    margin-top: 0;
+  }
+
+  .profile-title h1 {
+    font-size: 21px;
+  }
+
+  .account-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* موبایل خیلی کوچک */
+@media (max-width: 450px) {
+  .profile-menu nav {
+    grid-template-columns: 1fr;
+  }
+
+  .account-card {
+    padding: 18px;
+  }
+  .card-title {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .card-title h2 {
+    font-size: 16px;
+  }
+
+  .card-title button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

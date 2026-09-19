@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const cartSchema = new mongoose.Schema({
+const registeredSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -13,7 +13,7 @@ const cartSchema = new mongoose.Schema({
       ref: "Product",
     },
   ],
-  isComplated: { type: Boolean, default: false },
+  isDelivered: { type: Boolean, default: false },
 });
 
-module.exports = mongoose.model("Cart", cartSchema);
+module.exports = mongoose.model("Registered", registeredSchema);

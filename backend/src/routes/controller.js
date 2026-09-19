@@ -3,11 +3,13 @@ const { validationResult } = require("express-validator");
 const User = require("../models/user");
 const Product = require("../models/product");
 const Cart = require("../models/cart");
+const Registered = require("../models/Registered");
 
 module.exports = class {
   constructor() {
     autoBind(this);
     this.User = User;
+    this.Registered = Registered;
     this.Product = Product;
     this.Cart = Cart;
   }
