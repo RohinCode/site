@@ -1,26 +1,8 @@
-const number = document.querySelector(".number span");
-const minus = document.querySelector(".number .fa-minus");
-const plus = document.querySelector(".number .fa-plus");
 const main = document.querySelector("main");
 const token = localStorage.getItem("disjiRohinToken");
 const domin = "http://localhost:3000";
 SHIPPING_COST = 50000;
-
-// plus.addEventListener("click", () => {
-//   let value = Number(number.textContent);
-//   value++;
-//   number.textContent = value;
-// });
-
-// minus.addEventListener("click", () => {
-//   let value = Number(number.textContent);
-
-//   if (value > 0) {
-//     value--;
-//     number.textContent = value;
-//   }
-// });
-
+let totalPrice;
 function priceToNumber(price) {
   const normalizedPrice = price
     .replace(/[۰-۹]/g, (digit) => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit))
@@ -67,7 +49,7 @@ async function start() {
       return;
     }
 
-    if(result.data.products.length===0) return
+    if (result.data.products.length === 0) return;
 
     createCart(result.data);
   } catch (error) {
@@ -110,7 +92,7 @@ function createCart(cart) {
     productsContainer.appendChild(item);
   });
 
-  const totalPrice = totalProductsPrice + SHIPPING_COST;
+  totalPrice = totalProductsPrice + SHIPPING_COST;
 
   const pay = document.createElement("div");
   pay.classList.add("pay");
@@ -131,7 +113,7 @@ function createCart(cart) {
       </div>
 
       <div>
-        <p>مجموع</p>
+        <p>مجموع(به تومان)</p>
         <span>${totalPrice.toLocaleString()}</span>
       </div>
 
@@ -142,6 +124,24 @@ function createCart(cart) {
 
   main.appendChild(productsContainer);
   main.appendChild(pay);
+
+  const number = document.querySelector(".number span");
+  const minus = document.querySelector(".number .fa-minus");
+  const plus = document.querySelector(".number .fa-plus");
+  plus.addEventListener("click", () => {
+    let value = Number(number.textContent);
+    value++;
+    number.textContent = value;
+  });
+
+  minus.addEventListener("click", () => {
+    let value = Number(number.textContent);
+
+    if (value > 0) {
+      value--;
+      number.textContent = value;
+    }
+  });
 
   const complateBtn = document.querySelector("#complateShopping");
   complateBtn.addEventListener("click", async () => {
@@ -165,7 +165,7 @@ function createCart(cart) {
         return;
       }
 
-      if (!result.data.address) {
+      if (!result.data.address || !result.data.phoneNamber) {
         console.log(result.data);
         return;
       }
@@ -212,25 +212,24 @@ function innerhtml() {
     </button>
   </div>
 `;
-  document
-    .querySelector("#continueBtn")
-    .addEventListener("click", async () => {
-            try {
-        const response = await fetch(`${domin}/api/cart/isComplate`, {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": token,
-          },
-        });
+  document.querySelector("#continueBtn").addEventListener("click", async () => {
+    try {
+      const response = await fetch(`${domin}/api/cart/isComplate`, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+          total: totalPrice,
+        },
+      });
 
-        const result = await response.json();
+      const result = await response.json();
 
-        if (!response.ok) {
-          console.log(result);
-          return;
-        }
+      if (!response.ok) {
+        console.log(result);
+        return;
+      }
 
-        document.body.innerHTML=`<div class="order-notice">
+      document.body.innerHTML = `<div class="order-notice">
     <div class="notice-icon">
       <i class="fa-solid fa-check"></i>
     </div>
@@ -243,10 +242,9 @@ function innerhtml() {
       <li>ارسال محصول معمولاً حدود ۲ تا ۳ روز کاری طول می‌کشد.</li>
     </ul>
         <button class="btn"><a href=".././index.html">برگشت به صفحه‌ی اصلی</a></button>
-  </div>`
-
-      } catch (error) {
-        console.log(error);
-      }
-    });
+  </div>`;
+    } catch (error) {
+      console.log(error);
+    }
+  });
 }

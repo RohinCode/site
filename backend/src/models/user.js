@@ -9,6 +9,11 @@ const userSchema = new mongoose.Schema({
     default: null,
     maxlength: [200, "آدرس نمی‌تواند بیشت از 200 کاراکتر باشد"],
   },
+  phoneNamber: {
+    type: String,
+    default: null,
+    maxlength: [11, "شماره نمی‌تواند بیشتر از 11 رقم باشد"],
+  },
   isadmin: { type: Boolean, default: false },
 });
 

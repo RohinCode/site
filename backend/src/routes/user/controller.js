@@ -7,6 +7,6 @@ module.exports = new (class extends controller {
   }
 
   async me(req, res) {
-    this.response({ res, data: _.pick(req.user, ["name", "email", "address"]) });
+    this.response({ res, data: _.pick(req.user, ["name", "email", "address", "phoneNamber"]) });
   }
 })();

@@ -14,6 +14,7 @@ const registeredSchema = new mongoose.Schema({
     },
   ],
   isDelivered: { type: Boolean, default: false },
+  totalPrice: { type: Number, required: true },
 });
 
 module.exports = mongoose.model("Registered", registeredSchema);

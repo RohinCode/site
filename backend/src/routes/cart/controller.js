@@ -41,11 +41,7 @@ module.exports = new (class extends controller {
 
     await cart.save();
 
-    this.response({
-      res,
-      message: "محصول به سبد خرید اضافه شد",
-      data: cart,
-    });
+    this.response({ res, message: "محصول به سبد خرید اضافه شد", data: cart });
   }
 
   async getProdoct(req, res) {
@@ -54,20 +50,13 @@ module.exports = new (class extends controller {
       "user",
     ]);
     if (!product) {
-      return this.response({
-        res,
-        code: 404,
-        message: "not found",
-      });
+      return this.response({ res, code: 404, message: "پیدا نشد" });
     }
-    this.response({
-      res,
-      data: product,
-      message: "ok",
-    });
+    this.response({ res, data: product, message: "ok" });
   }
 
   async isComplate(req, res) {
+    const totalPrice = req.header("total");
     const cart = await this.Cart.findOne({
       user: req.user.id,
     });
@@ -83,6 +72,7 @@ module.exports = new (class extends controller {
     const registered = new this.Registered({
       user: cart.user,
       products: cart.products,
+      totalPrice,
     });
 
     cart.products = [];
@@ -94,5 +84,33 @@ module.exports = new (class extends controller {
       res,
       message: "ثبت شد",
     });
+  }
+
+  async registered(req, res) {
+    const registeredProduct = await this.Registered.find()
+      .populate("products")
+      .populate("user", "-password");
+
+    if (registeredProduct.length == 0) {
+      return this.response({ res, message: "هیچ خریدی انجام نشده" });
+    }
+
+    this.response({
+      res,
+      message: "لیست خریدهای انجام شده",
+      data: registeredProduct,
+    });
+  }
+
+  async isDelivered(req, res) {
+    const registeredProduct = await this.Registered.findOneAndDelete({
+      _id: req.body.orderId,
+    });
+
+    if (!registeredProduct) {
+      return this.response({ res, message: "این خرید یافت نشد" });
+    }
+
+    this.response({ res, message: "با موفقیت حذف شد" });
   }
 })();

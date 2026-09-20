@@ -67,3 +67,4 @@ async function start() {
 }
 
 start();
+export { token };

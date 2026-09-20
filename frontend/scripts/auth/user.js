@@ -24,3 +24,12 @@ async function start() {
 }
 
 start();
+
+const editBtn = document.querySelector("#edit");
+const phoneNumber = document.querySelector("#number");
+
+editBtn.addEventListener("click", () => {
+  phoneNumber.innerHTML=""
+  console.log(2);
+
+});
