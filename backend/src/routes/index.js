@@ -5,6 +5,7 @@ const userRouter = require("./user");
 const ProductRouter = require("./product");
 const CartRouter = require("./cart");
 const adminRouter = require("./admin");
+const reportRouter = require("./report");
 const { isLoggined, isAdmin } = require("./../middlewares/auth");
 const error = require("./../middlewares/error");
 
@@ -14,6 +15,7 @@ router.use("/user", isLoggined, userRouter);
 router.use("/admin", isLoggined, isAdmin, adminRouter);
 router.use("/product", ProductRouter);
 router.use("/cart", CartRouter);
+router.use("/report",isLoggined, isAdmin, reportRouter);
 
 router.use(error);
 

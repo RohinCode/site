@@ -7,9 +7,8 @@ async function getSuggestProducts() {
 
   try {
     const response = await fetch(`${domin}/api/product/OfferProducts`);
-
+    const result = await response.json();
     if (response.ok) {
-      const result = await response.json();
       const data = result.data;
       const main = document.querySelector("main");
       const suggest = document.createElement("div");
@@ -26,7 +25,8 @@ async function getSuggestProducts() {
         createProductCart(product, shoppingCard);
       });
     } else {
-      console.log("no");
+      console.log(result);
+      document.querySelector(".offer-product-section").style.display = "none";
     }
   } catch (error) {
     console.log(error);
@@ -189,7 +189,7 @@ async function getCategoryProducts(category, title) {
     const response = await fetch(`${domin}/api/product/${category}`);
 
     if (!response.ok) {
-      console.log("no");
+      console.log(response.json());
       return;
     }
 

@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Product = require("../models/product");
 const Cart = require("../models/cart");
 const Registered = require("../models/Registered");
+const Report = require("../models/report");
 
 module.exports = class {
   constructor() {
@@ -12,6 +13,7 @@ module.exports = class {
     this.Registered = Registered;
     this.Product = Product;
     this.Cart = Cart;
+    this.Report = Report;
   }
 
   validationBody(req, res) {

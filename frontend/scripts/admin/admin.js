@@ -51,7 +51,7 @@ async function start() {
 
             <li>
               <i class="fa-solid fa-message"></i>
-              <span>گزارش‌های دریافتی (دیدن پیام‌های کاربران)</span>
+               <span>گزارش‌های فروش محصول</span>
             </li>
 
             <li>

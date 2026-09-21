@@ -24,7 +24,6 @@ module.exports = new (class extends controller {
         products: [productId],
       });
     } else {
-      // اینجا بررسی کن
       const alreadyExists = cart.products.some(
         (id) => id.toString() === productId,
       );
@@ -75,6 +74,12 @@ module.exports = new (class extends controller {
       totalPrice,
     });
 
+    cart.products.map(async (product, index) => {
+      const p = await this.Product.findOne({ _id: product });
+      p.show = false;
+      await p.save();
+    });
+
     cart.products = [];
 
     await registered.save();
@@ -103,13 +108,33 @@ module.exports = new (class extends controller {
   }
 
   async isDelivered(req, res) {
-    const registeredProduct = await this.Registered.findOneAndDelete({
+    const registeredProduct = await this.Registered.findOne({
       _id: req.body.orderId,
-    });
-
+    }).populate("products");
     if (!registeredProduct) {
       return this.response({ res, message: "این خرید یافت نشد" });
     }
+
+    await Promise.all(
+      registeredProduct.products.map(async (product) => {
+        await this.Product.findByIdAndDelete(product);
+
+        let report = await this.Report.findOne({ category: product.category });
+        if (!report) {
+          report = new this.Report({
+            category: product.category,
+          });
+          await report.save();
+        } else {
+          report.quantity += 1;
+          await report.save();
+        }
+      }),
+    );
+
+    await this.Registered.deleteOne({
+      _id: req.body.orderId,
+    });
 
     this.response({ res, message: "با موفقیت حذف شد" });
   }

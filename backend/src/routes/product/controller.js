@@ -3,7 +3,10 @@ const _ = require("lodash");
 const domin = "http://localhost:3000";
 module.exports = new (class extends controller {
   async OfferProducts(req, res) {
-    let products = await this.Product.find({ isSuggest: true }).limit(8);
+    let products = await this.Product.find({
+      isSuggest: true,
+      show: true,
+    }).limit(8);
     if (products.length == 0)
       return this.response({
         res,
@@ -16,6 +19,7 @@ module.exports = new (class extends controller {
   async getCategoryProduct(req, res) {
     let products = await this.Product.find({
       category: req.params.category,
+      show: true,
     }).limit(20);
     if (products.length == 0)
       return this.response({
@@ -32,7 +36,7 @@ module.exports = new (class extends controller {
       return this.response({
         res,
         code: 400,
-        message: "this product already created",
+        message: "این محصول قبلا ساخته شده بود",
       });
     }
 
@@ -59,6 +63,7 @@ module.exports = new (class extends controller {
         "hotOffer",
         "isSuggest",
         "category",
+        "show",
       ]),
     });
   }

@@ -1,8 +1,7 @@
-
-import { left} from "./changeItem.js";
+import { left } from "./changeItem.js";
 
 export default function showProfile() {
-  left.innerHTML =`
+  left.innerHTML = `
     <section class="adminProfile">
 
       <h1>
@@ -34,7 +33,7 @@ export default function showProfile() {
 
         <li>
           <i class="fa-solid fa-message"></i>
-          <span>گزارش‌های دریافتی</span>
+            <span>گزارش‌های فروش محصول</span>
         </li>
 
         <li>

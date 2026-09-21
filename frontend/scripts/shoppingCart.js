@@ -49,7 +49,14 @@ async function start() {
       return;
     }
 
-    if (result.data.products.length === 0) return;
+    if (result.data.products.length === 0) {
+      main.style.display = "flex";
+      main.style.justifyContent = "center";
+      main.style.alignItems = "center";
+      main.style.textAlign = "center";
+      main.innerHTML = "<h1>سبد خرید شما خالی است</h1>";
+      return;
+    }
 
     createCart(result.data);
   } catch (error) {
@@ -167,6 +174,28 @@ function createCart(cart) {
 
       if (!result.data.address || !result.data.phoneNamber) {
         console.log(result.data);
+        document.body.style.display = "flex";
+        document.body.style.justifyContent = "center";
+        document.body.style.alignItems = "center";
+        document.body.style.textAlign = "center";
+        document.body.innerHTML = `
+        <div class="order-notice">
+    <div class="notice-icon">
+      <i class="fa-solid fa-circle-info"></i>
+    </div>
+
+    <h2>لطفا قبل‌از سفارش اطلاعات خود را کامل کنید</h2>
+
+    <ul>
+      <li>وارد بخش پروفایل شوید</li>
+      <li>آدرس و شماره تلفن خود را وارد کنید</li>
+      <li>به همین صفحه برگردید و سفارش را ادمه دهید</li>
+    </ul>
+
+    <button id="continueBtn">
+        <a href="./user/user.html">رفتن به پروفایل</a>
+    </button>
+  </div>`;
         return;
       }
 

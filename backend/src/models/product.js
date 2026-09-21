@@ -8,6 +8,7 @@ const ProductSchema = new mongoose.Schema({
   hotOffer: { type: Boolean, default: false },
   isSuggest: { type: Boolean, default: false },
   category: { type: String, required: true },
+  show: { type: Boolean, default: true },
 });
 
 const Product = mongoose.model("Product", ProductSchema);

@@ -64,3 +64,13 @@ body {
 .bottom-nav a i {
   font-size: 20px;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #1f1f1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #115696;
+  border-radius: 8px;
+}

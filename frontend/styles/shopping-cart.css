@@ -26,7 +26,6 @@ main {
   align-items: start;
 }
 
-
 main > div:first-child {
   display: flex;
   flex-direction: column;
@@ -63,7 +62,6 @@ main > div:first-child {
   border-radius: 14px;
 }
 
-
 .item > div {
   display: flex;
   flex-direction: column;
@@ -84,7 +82,6 @@ main > div:first-child {
   color: #172033;
 }
 
-
 .item > div .left {
   height: auto;
   display: flex;
@@ -93,7 +90,6 @@ main > div:first-child {
   align-items: center;
   color: #0f2147;
 }
-
 
 .item div .left .price {
   padding: 0;
@@ -108,8 +104,6 @@ main > div:first-child {
   color: #64748b;
   font-weight: 500;
 }
-
-
 
 .item div .left .number {
   display: flex;
@@ -161,7 +155,6 @@ main > div:first-child {
   color: #172033;
 }
 
-
 .pay {
   position: sticky;
   top: 25px;
@@ -175,7 +168,6 @@ main > div:first-child {
 
   box-shadow: 0 5px 25px rgba(15, 23, 42, 0.06);
 }
-
 
 .pay h4 {
   margin: 0 0 25px;
@@ -191,8 +183,6 @@ main > div:first-child {
 
   border-bottom: 1px solid #edf0f4;
 }
-
-
 
 .pay .price {
   display: flex;
@@ -223,7 +213,6 @@ main > div:first-child {
   color: #172033;
 }
 
-
 .pay .price div:last-child {
   margin-top: 12px;
   padding-top: 18px;
@@ -244,7 +233,6 @@ main > div:first-child {
   color: #0f2147;
   font-weight: 700;
 }
-
 
 .pay button {
   width: 100%;
@@ -276,15 +264,12 @@ main > div:first-child {
 
   transform: translateY(-2px);
 
-
   box-shadow: 0 7px 18px rgba(15, 33, 71, 0.2);
 }
 
 .pay button:active {
   transform: translateY(0);
 }
-
-
 
 .bottom-nav {
   direction: rtl;
@@ -293,7 +278,6 @@ main > div:first-child {
 * {
   box-sizing: border-box;
 }
-
 
 .order-notice {
   width: 100%;
@@ -390,7 +374,7 @@ main > div:first-child {
   }
 }
 #continueBtn {
-  width: 100%;
+  width: 80%;
   margin-top: 25px;
   padding: 13px 20px;
 
@@ -406,6 +390,14 @@ main > div:first-child {
   cursor: pointer;
   transition: 0.2s;
 }
+#continueBtn a {
+  width: 100%;
+  padding: 10px 20px;
+  font-family: inherit;
+  color: white;
+  font-size: 15px;
+  transition: 0.2s;
+}
 
 #continueBtn:hover {
   background: #1e437a;
@@ -415,15 +407,15 @@ main > div:first-child {
   transform: scale(0.98);
 }
 
-.btn{
-  padding:10px;
+.btn {
+  padding: 10px;
   background-color: #285392;
   outline: none;
   border: none;
   border-radius: 6px;
   font-family: inherit;
 }
-.btn a{
+.btn a {
   text-decoration: none;
   color: white;
   font-family: inherit;
@@ -440,7 +432,6 @@ main > div:first-child {
     position: static;
   }
 }
-
 
 @media (max-width: 600px) {
   main {
@@ -509,8 +500,6 @@ main > div:first-child {
     font-size: 16px;
   }
 }
-
-
 
 @media (max-width: 400px) {
   .item {

@@ -1,4 +1,5 @@
 import { left, domin} from "./changeItem.js";
+import { token} from "./admin.js";
 
 export default function showAddProduct() {
   left.innerHTML = `

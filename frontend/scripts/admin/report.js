@@ -1,15 +1,78 @@
-import { left} from "./changeItem.js";
+import { left, domin } from "./changeItem.js";
+import { token } from "./admin.js";
 
-export function showReports() {
-  left.innerHTML =`
-    <h2>گزارش‌ها</h2>
-    <p>اینجا گزارش‌های فروش نمایش داده می‌شود.</p>
-  `;
+export async function showReports() {
+  try {
+    const response = await fetch(`${domin}/api/report`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 400) {
+        return (left.innerHTML = `<h1>گزارش‌ها</h1>
+        <p>گزارشی نداریم</p>`);
+      }
+      console.log(result);
+      return;
+    }
+
+    console.log(result);
+    const totalSales = result.data.reduce((total, report) => {
+      return total + report.quantity;
+    }, 0);
+    left.innerHTML = `<section class="reports-page">
+
+  <div class="reports-header">
+    <div>
+      <h2>گزارش‌ها</h2>
+      <p>گزارش فروش محصولات</p>
+    </div>
+
+    <div class="reports-total">
+      <span>مجموع فروش</span>
+      <strong>${totalSales.toLocaleString("fa-IR")} عدد</strong>
+    </div>
+  </div>
+
+
+  <div class="reports-list">
+
+  ${result.data
+    .map((product) => {
+      return `<article class="report-card">
+       <div class="report-icon">
+            <i class="fa-solid fa-layer-group"></i>
+        </div>
+
+        <div class="report-info">
+          <h3>${product.category}</h3>
+          <span>دسته‌بندی محصول</span>
+        </div>
+
+        <div class="report-quantity">
+          <strong>${product.quantity.toLocaleString("fa-IR")}</strong>
+          <span>فروش</span>
+        </div>
+        </article>`;
+    })
+    .join(" ")}
+
+
+  </div>
+
+</section>`;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
 export function showSupport() {
-  left.innerHTML =`
+  left.innerHTML = `
     <section class="support">
 
       <h2>

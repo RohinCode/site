@@ -42,8 +42,6 @@ export default async function showOrders() {
 }
 
 function renderOrders() {
-
-
   console.log(2);
   const start = currentPage * ORDERS_PER_PAGE;
   const end = start + ORDERS_PER_PAGE;
@@ -238,12 +236,12 @@ function renderOrders() {
                 <button
                   class="delivered-btn"
                   type="button"
+                  data-order-id="${order._id}"
                 >
 
                   <i class="fa-solid fa-check"></i>
 
-                  سفارش تحویل داده شد
-
+                  سفارش تحویل داده شد. حذف محصول از دیتابیس
                 </button>
 
               </div>
@@ -270,6 +268,38 @@ function renderOrders() {
 
     </section>
   `;
+
+  const deliveredButtons = document.querySelectorAll(".delivered-btn");
+
+  deliveredButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const orderId = button.dataset.orderId;
+
+      try {
+        const response = await fetch(`${domin}/api/cart/isDelivered`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+          body: JSON.stringify({
+            orderId: orderId,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.log(result);
+          return;
+        }
+
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
 
   const nextOrders = document.querySelector("#nextOrders");
 
