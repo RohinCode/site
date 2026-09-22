@@ -1,0 +1,130 @@
+body {
+  overflow-x: hidden;
+  background: #f5f7fb;
+}
+
+main {
+  width: min(700px, calc(100% - 30px));
+  margin: 40px auto;
+  padding: 25px;
+}
+
+main h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #285392;
+  font-size: 26px;
+}
+
+main > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+main details {
+  width: 100%;
+  box-sizing: border-box;
+
+  background: #fff;
+  border: 1px solid #e3e7ee;
+  border-radius: 12px;
+
+  padding: 0;
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+main details:hover {
+  border-color: #285392;
+  box-shadow: 0 5px 15px rgba(40, 83, 146, 0.1);
+}
+
+main summary {
+  list-style: none;
+  position: relative;
+
+  padding: 18px 45px 18px 20px;
+
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+
+  user-select: none;
+}
+
+/* حذف فلش پیش‌فرض */
+main summary::-webkit-details-marker {
+  display: none;
+}
+
+/* علامت + */
+main summary::after {
+  content: "+";
+
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 22px;
+  font-weight: normal;
+  color: #285392;
+
+  transition: transform 0.2s ease;
+}
+
+/* وقتی سوال باز است */
+main details[open] summary {
+  color: #285392;
+  border-bottom: 1px solid #e8ebf0;
+}
+
+main details[open] summary::after {
+  content: "−";
+}
+
+/* جواب */
+main details p {
+  margin: 0;
+  padding: 18px 20px;
+
+  line-height: 2;
+  font-size: 14px;
+  color: #666;
+
+  text-align: right;
+}
+
+/* موبایل */
+@media (max-width: 600px) {
+  main {
+    width: calc(100% - 20px);
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  main h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  main summary {
+    padding: 16px 42px 16px 15px;
+    font-size: 14px;
+  }
+
+  main summary::after {
+    right: 15px;
+  }
+
+  main details p {
+    padding: 15px;
+    font-size: 13px;
+  }
+}

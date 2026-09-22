@@ -18,6 +18,10 @@ module.exports = new (class extends controller {
       user: req.user._id,
     });
 
+    const p = await this.Product.findOne({ _id: productId });
+    p.show = false;
+    await p.save();
+
     if (!cart) {
       cart = new this.Cart({
         user: req.user._id,
@@ -72,12 +76,6 @@ module.exports = new (class extends controller {
       user: cart.user,
       products: cart.products,
       totalPrice,
-    });
-
-    cart.products.map(async (product, index) => {
-      const p = await this.Product.findOne({ _id: product });
-      p.show = false;
-      await p.save();
     });
 
     cart.products = [];
@@ -137,5 +135,34 @@ module.exports = new (class extends controller {
     });
 
     this.response({ res, message: "با موفقیت حذف شد" });
+  }
+
+  async deleteProduct(req, res) {
+    const cart = await this.Cart.findOne({
+      user: req.user._id,
+    });
+
+    if (!cart) {
+      return this.response({
+        res,
+        code: 404,
+        message: "سبد خرید یافت نشد",
+      });
+    }
+
+    const p = await this.Product.findOne({ _id: req.body.productId });
+    p.show = true;
+    await p.save();
+
+    cart.products = cart.products.filter(
+      (productId) => productId.toString() !== req.body.productId,
+    );
+
+    await cart.save();
+
+    this.response({
+      res,
+      message: "محصول با موفقیت از سبد خرید حذف شد",
+    });
   }
 })();

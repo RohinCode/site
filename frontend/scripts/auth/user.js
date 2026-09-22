@@ -14,7 +14,7 @@ async function start() {
       },
     });
     if (!response.ok) {
-      // localStorage.removeItem("disjiRohinToken");
+      localStorage.removeItem("disjiRohinToken");
       window.location.href = "./login.html";
       return false;
     }
@@ -24,12 +24,3 @@ async function start() {
 }
 
 start();
-
-const editBtn = document.querySelector("#edit");
-const phoneNumber = document.querySelector("#number");
-
-editBtn.addEventListener("click", () => {
-  phoneNumber.innerHTML=""
-  console.log(2);
-
-});

@@ -44,10 +44,20 @@ async function start() {
         localStorage.removeItem("disjiRohinToken");
         window.location.href = "./user/login.html";
       }
+
+      if (result.message === "پیدا نشد") {
+        main.style.display = "flex";
+        main.style.justifyContent = "center";
+        main.style.alignItems = "center";
+        main.style.textAlign = "center";
+        main.innerHTML = "<h1>سبد خرید شما خالی است</h1>";
+        return;
+      }
       console.log(result);
 
       return;
     }
+    console.log(result);
 
     if (result.data.products.length === 0) {
       main.style.display = "flex";
@@ -83,14 +93,20 @@ function createCart(cart) {
 
         <div class="left">
           <div class="price">
-            ${product.price.toLocaleString()}
+            ${product.price}
             <span>تومان</span>
           </div>
 
           <div class="number">
-            <i class="fa-solid fa-plus"></i>
             <span>1</span>
-            <i class="fa-solid fa-minus"></i>
+
+            <button
+              style="background: white; border:none; outline:none; padding:0"
+              class="delete"
+              data-product-id="${product._id}"
+            >
+              <i class="fa-solid fa-trash-can" style="font-size:16px;"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -99,7 +115,7 @@ function createCart(cart) {
     productsContainer.appendChild(item);
   });
 
-  totalPrice = totalProductsPrice + SHIPPING_COST;
+  const totalPrice = totalProductsPrice + SHIPPING_COST;
 
   const pay = document.createElement("div");
   pay.classList.add("pay");
@@ -111,46 +127,65 @@ function createCart(cart) {
 
       <div>
         <p>مجموع قیمت کالاها</p>
-        <span>${totalProductsPrice.toLocaleString()}</span>
+        <span>${totalProductsPrice.toLocaleString("fa-IR")}</span>
       </div>
 
       <div>
         <p>هزینه‌ی ارسال</p>
-        <span>${SHIPPING_COST.toLocaleString()}</span>
+        <span>${SHIPPING_COST.toLocaleString("fa-IR")}</span>
       </div>
 
       <div>
-        <p>مجموع(به تومان)</p>
-        <span>${totalPrice.toLocaleString()}</span>
+        <p>مجموع (به تومان)</p>
+        <span>${totalPrice.toLocaleString("fa-IR")}</span>
       </div>
 
     </div>
 
     <button id="complateShopping">ادامه</button>
-    `;
+  `;
 
   main.appendChild(productsContainer);
   main.appendChild(pay);
 
-  const number = document.querySelector(".number span");
-  const minus = document.querySelector(".number .fa-minus");
-  const plus = document.querySelector(".number .fa-plus");
-  plus.addEventListener("click", () => {
-    let value = Number(number.textContent);
-    value++;
-    number.textContent = value;
+  // حذف محصول
+  const deleteButtons = productsContainer.querySelectorAll(".delete");
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const productId = button.dataset.productId;
+
+      try {
+        const response = await fetch(`${domin}/api/cart/delete`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+          body: JSON.stringify({
+            productId,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.log(result);
+          return;
+        }
+
+        console.log(result);
+
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    });
   });
 
-  minus.addEventListener("click", () => {
-    let value = Number(number.textContent);
-
-    if (value > 0) {
-      value--;
-      number.textContent = value;
-    }
-  });
-
+  // ادامه‌ی خرید
   const complateBtn = document.querySelector("#complateShopping");
+
   complateBtn.addEventListener("click", async () => {
     if (!token) {
       window.location.href = "./user/login.html";
@@ -174,28 +209,32 @@ function createCart(cart) {
 
       if (!result.data.address || !result.data.phoneNamber) {
         console.log(result.data);
+
         document.body.style.display = "flex";
         document.body.style.justifyContent = "center";
         document.body.style.alignItems = "center";
         document.body.style.textAlign = "center";
+
         document.body.innerHTML = `
-        <div class="order-notice">
-    <div class="notice-icon">
-      <i class="fa-solid fa-circle-info"></i>
-    </div>
+          <div class="order-notice">
+            <div class="notice-icon">
+              <i class="fa-solid fa-circle-info"></i>
+            </div>
 
-    <h2>لطفا قبل‌از سفارش اطلاعات خود را کامل کنید</h2>
+            <h2>لطفا قبل‌از سفارش اطلاعات خود را کامل کنید</h2>
 
-    <ul>
-      <li>وارد بخش پروفایل شوید</li>
-      <li>آدرس و شماره تلفن خود را وارد کنید</li>
-      <li>به همین صفحه برگردید و سفارش را ادمه دهید</li>
-    </ul>
+            <ul>
+              <li>وارد بخش پروفایل شوید</li>
+              <li>آدرس و شماره تلفن خود را وارد کنید</li>
+              <li>به همین صفحه برگردید و سفارش را ادامه دهید</li>
+            </ul>
 
-    <button id="continueBtn">
-        <a href="./user/user.html">رفتن به پروفایل</a>
-    </button>
-  </div>`;
+            <button id="continueBtn">
+              <a href="./user/user.html">رفتن به پروفایل</a>
+            </button>
+          </div>
+        `;
+
         return;
       }
 

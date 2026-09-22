@@ -275,9 +275,6 @@ main > div:first-child {
   direction: rtl;
 }
 
-* {
-  box-sizing: border-box;
-}
 
 .order-notice {
   width: 100%;

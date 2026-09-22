@@ -156,15 +156,12 @@
   display: flex;
   align-items: center;
   gap: 7px;
-
   padding: 9px 14px;
-
+  margin-top: 9px;
   border: none;
   border-radius: 8px;
-
   background: #edf3fb;
   color: #285392;
-
   font-family: inherit;
   cursor: pointer;
   transition: 0.2s;

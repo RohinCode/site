@@ -88,14 +88,14 @@
   align-items: center;
   justify-content: space-between;
   background-color: rgb(45, 98, 167);
-  width: 40px;
+  width: 25px;
   padding: 8px 12px;
   border-radius: 20px;
   cursor: pointer;
   transition: 0.5s;
 }
 .shopping-card .buttons .left .extend-btn:hover {
-  width: 100px;
+  width: 85px;
 }
 
 .shopping-card .buttons .left .extend-btn:hover .b-text {

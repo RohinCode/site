@@ -294,6 +294,7 @@ function renderOrders() {
           return;
         }
 
+        window.location.reload();
         console.log(result);
       } catch (error) {
         console.log(error);

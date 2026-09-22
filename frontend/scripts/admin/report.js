@@ -65,7 +65,32 @@ export async function showReports() {
 
   </div>
 
+  <button id="refresh">حذف این گزارشات</button>
 </section>`;
+
+    document.querySelector("#refresh").addEventListener("click", async () => {
+      try {
+        const response = await fetch(`${domin}/api/report`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.log(result);
+          return;
+        }
+
+        window.location.reload();
+        console.log(result);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   } catch (error) {
     console.log(error);
   }
