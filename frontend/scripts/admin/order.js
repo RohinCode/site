@@ -23,14 +23,15 @@ export default async function showOrders() {
     }
     if (!Array.isArray(result.data)) {
       left.innerHTML = `
-    <section class="orders-page">
+      <section class="orders-page">
       <h2>سفارش‌ها</h2>
       <p>${result.message}</p>
     </section>
-`;
+    `;
       return;
     }
 
+    console.log(result);
     allOrders = result.data;
     currentPage = 0;
     console.log(result);
@@ -80,22 +81,24 @@ function renderOrders() {
                 <div class="order-product">
 
                   <img
-                    src="${product.img}"
-                    alt="${product.name}"
+                    src="${product.productId.img}"
+                    alt="${product.productId.name}"
                   />
 
                   <div class="product-info">
 
                     <h4>
-                      ${product.name}
+                      ${product.productId.name}
                     </h4>
 
                     <div class="product-details">
 
                       <span>
-                        قیمت: ${product.price}
+                        قیمت: ${product.productId.price}
                       </span>
-
+                      <span>
+                        تعداد: ${product.quantity}
+                      </span>
                     </div>
 
                   </div>
@@ -205,7 +208,7 @@ function renderOrders() {
                   </h3>
 
                   <span>
-                    ${order.products.length} محصول
+                   ${order.products.reduce((total, product) => total + product.quantity, 0)} محصول
                   </span>
 
                 </div>
@@ -227,7 +230,7 @@ function renderOrders() {
                   </span>
 
                   <strong>
-                   ${order.totalPrice.toLocaleString()} تومان
+                    ${Number(order.totalPrice).toLocaleString("fa-IR")} تومان
                   </strong>
 
                 </div>
@@ -261,7 +264,7 @@ function renderOrders() {
               type="button"
               id="nextOrders"
             >
-              نمایش ۴ سفارش بعدی
+              نمایش 3 سفارش بعدی
             </button>`
           : ""
       }

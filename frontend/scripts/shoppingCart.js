@@ -80,30 +80,32 @@ function createCart(cart) {
   let totalProductsPrice = 0;
 
   cart.products.forEach((product) => {
-    totalProductsPrice += priceToNumber(product.price);
+    console.log(product);
+    totalProductsPrice +=
+      priceToNumber(product.productId.price) * product.quantity;
 
     const item = document.createElement("div");
     item.classList.add("item");
 
     item.innerHTML = `
-      <img src="${product.img}" alt="${product.name}" />
+      <img src="${product.productId.img}" alt="${product.productId.name}" />
 
       <div>
-        <h3>${product.name}</h3>
+        <h3>${product.productId.name}</h3>
 
         <div class="left">
           <div class="price">
-            ${product.price}
+            ${product.productId.price}
             <span>تومان</span>
           </div>
 
           <div class="number">
-            <span>1</span>
+            <span> ${product.quantity}</span>
 
             <button
               style="background: white; border:none; outline:none; padding:0"
               class="delete"
-              data-product-id="${product._id}"
+              data-product-id="${product.productId._id}"
             >
               <i class="fa-solid fa-trash-can" style="font-size:16px;"></i>
             </button>
@@ -115,7 +117,7 @@ function createCart(cart) {
     productsContainer.appendChild(item);
   });
 
-  const totalPrice = totalProductsPrice + SHIPPING_COST;
+  totalPrice = totalProductsPrice + SHIPPING_COST;
 
   const pay = document.createElement("div");
   pay.classList.add("pay");

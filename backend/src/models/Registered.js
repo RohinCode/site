@@ -9,12 +9,29 @@ const registeredSchema = new mongoose.Schema({
 
   products: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+
+      quantity: {
+        type: Number,
+        required: true,
+        default: 1,
+      },
     },
   ],
-  isDelivered: { type: Boolean, default: false },
-  totalPrice: { type: String, required: true },
+
+  totalPrice: {
+    type: String,
+    required: true,
+  },
+
+  isDelivered: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Registered", registeredSchema);

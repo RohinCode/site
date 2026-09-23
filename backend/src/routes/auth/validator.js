@@ -15,7 +15,7 @@ module.exports = new (class {
       check("name").not().isEmpty().withMessage("اسم نمی‌تونه خالی باشه"),
       check("password").not().isEmpty().withMessage("پسورد نمی‌تونه خالی باشه"),
       check("phoneNamber")
-        .isLength({ min: 11 })
+        .isLength({ mxn: 11 })
         .withMessage("شماره نمی‌تواند بیشتر از 11 باشد"),
     ];
   }

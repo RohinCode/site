@@ -8,6 +8,17 @@ const ProductSchema = new mongoose.Schema({
   hotOffer: { type: Boolean, default: false },
   isSuggest: { type: Boolean, default: false },
   category: { type: String, required: true },
+  details: {
+    type: String,
+    default: "این محصول جزئیات ندارد",
+    maxlength: [320, "جزئیات نمی‌تواند بیشتر از 320 کلمه باشد"],
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    min: 0,
+    default: 1,
+  },
   show: { type: Boolean, default: true },
 });
 

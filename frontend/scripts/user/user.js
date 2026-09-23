@@ -26,7 +26,7 @@ async function myInfo() {
           </div>
 
           <h3>${result.data.name}</h3>
-          <span>کاربر عادی</span>
+          <span>${result.data.isadmin ? "ادمین" :"کاربر عادی"}</span>
         </div>
 
         <nav>
@@ -91,6 +91,11 @@ async function myInfo() {
     `;
 
     const edit = document.querySelector("#edit");
+    const logout = document.querySelector(".logout");
+    logout.addEventListener("click", (e) => {
+      localStorage.removeItem("disjiRohinToken");
+      window.location.href = "../../index.html";
+    });
     const save = document.querySelector("#save");
 
     const number = document.querySelector("#number");

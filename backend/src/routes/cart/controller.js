@@ -18,28 +18,35 @@ module.exports = new (class extends controller {
       user: req.user._id,
     });
 
-    const p = await this.Product.findOne({ _id: productId });
-    p.show = false;
-    await p.save();
+    if (product.quantity <= 0) {
+      return this.response({
+        res,
+        code: 400,
+        message: "این محصول موجود نیست",
+      });
+    }
+    product.quantity -= 1;
+    if (product.quantity === 0) {
+      product.show = false;
+    }
+
+    await product.save();
 
     if (!cart) {
       cart = new this.Cart({
         user: req.user._id,
-        products: [productId],
+        products: [{ productId, quantity: 1 }],
       });
     } else {
-      const alreadyExists = cart.products.some(
-        (id) => id.toString() === productId,
+      const item = cart.products.find(
+        (item) => item.productId.toString() === productId,
       );
 
-      if (alreadyExists) {
-        return this.response({
-          res,
-          code: 400,
-          message: "این محصول قبلاً در سبد خرید است",
-        });
+      if (item) {
+        item.quantity += 1;
+      } else {
+        cart.products.push({ productId, quantity: 1 });
       }
-      cart.products.push(productId);
     }
 
     await cart.save();
@@ -48,10 +55,9 @@ module.exports = new (class extends controller {
   }
 
   async getProdoct(req, res) {
-    const product = await this.Cart.findOne({ user: req.user.id }).populate([
-      "products",
-      "user",
-    ]);
+    const product = await this.Cart.findOne({ user: req.user.id })
+      .populate("products.productId")
+      .populate("user", "-password");
     if (!product) {
       return this.response({ res, code: 404, message: "پیدا نشد" });
     }
@@ -91,7 +97,7 @@ module.exports = new (class extends controller {
 
   async registered(req, res) {
     const registeredProduct = await this.Registered.find()
-      .populate("products")
+      .populate("products.productId")
       .populate("user", "-password");
 
     if (registeredProduct.length == 0) {
@@ -108,23 +114,27 @@ module.exports = new (class extends controller {
   async isDelivered(req, res) {
     const registeredProduct = await this.Registered.findOne({
       _id: req.body.orderId,
-    }).populate("products");
+    }).populate("products.productId");
     if (!registeredProduct) {
       return this.response({ res, message: "این خرید یافت نشد" });
     }
 
     await Promise.all(
-      registeredProduct.products.map(async (product) => {
-        await this.Product.findByIdAndDelete(product);
+      registeredProduct.products.map(async (item) => {
+        const product = item.productId;
+        if (product.quantity === 0) {
+          await this.Product.findByIdAndDelete(product._id);
+        }
 
         let report = await this.Report.findOne({ category: product.category });
         if (!report) {
           report = new this.Report({
             category: product.category,
+            quantity: item.quantity,
           });
           await report.save();
         } else {
-          report.quantity += 1;
+          report.quantity += item.quantity;
           await report.save();
         }
       }),
@@ -150,12 +160,37 @@ module.exports = new (class extends controller {
       });
     }
 
-    const p = await this.Product.findOne({ _id: req.body.productId });
-    p.show = true;
-    await p.save();
+    const item = cart.products.find(
+      (item) => item.productId.toString() === req.body.productId,
+    );
+
+    if (!item) {
+      return this.response({
+        res,
+        code: 404,
+        message: "این محصول در سبد خرید نیست",
+      });
+    }
+
+    const product = await this.Product.findOne({
+      _id: req.body.productId,
+    });
+
+    if (!product) {
+      return this.response({
+        res,
+        code: 404,
+        message: "محصول پیدا نشد",
+      });
+    }
+
+    product.quantity += item.quantity;
+    product.show = true;
+
+    await product.save();
 
     cart.products = cart.products.filter(
-      (productId) => productId.toString() !== req.body.productId,
+      (item) => item.productId.toString() !== req.body.productId,
     );
 
     await cart.save();
@@ -165,4 +200,20 @@ module.exports = new (class extends controller {
       message: "محصول با موفقیت از سبد خرید حذف شد",
     });
   }
+
+async checkDetails(req, res) {
+  const products = await this.Product.find();
+
+  for (const product of products) {
+    if (!product.details) {
+      product.details = "این محصول جزئیات ندارد.";
+      await product.save();
+    }
+  }
+
+  this.response({
+    res,
+    message: "جزئیات محصولات بررسی و تکمیل شد",
+  });
+}
 })();

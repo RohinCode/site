@@ -9,6 +9,7 @@ async function isLoggined(req, res, next) {
     return res.status(401).json({
       message: "access denied",
     });
+    console.log("tohoghxd")
   }
 
   try {

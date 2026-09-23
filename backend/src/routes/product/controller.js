@@ -39,7 +39,7 @@ module.exports = new (class extends controller {
         message: "این محصول قبلا ساخته شده بود",
       });
     }
-
+    console.log(req.body);
     product = new this.Product({
       name: req.body.name,
       star: req.body.star,
@@ -47,6 +47,8 @@ module.exports = new (class extends controller {
       category: req.body.category,
       hotOffer: req.body.hotOffer === "on",
       isSuggest: req.body.isSuggest === "on",
+      details: req.body.details,
+      stock: req.body.stock,
       img: `${domin}/images/${req.file.filename}`,
     });
     await product.save();
@@ -63,6 +65,8 @@ module.exports = new (class extends controller {
         "hotOffer",
         "isSuggest",
         "category",
+        "details",
+        "quantity",
         "show",
       ]),
     });

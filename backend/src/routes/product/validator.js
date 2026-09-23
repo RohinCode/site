@@ -8,6 +8,9 @@ module.exports = new (class {
       check("star")
         .isInt({ max: 6 })
         .withMessage("ستاره نمیتونه از 6 بیشتر باشه"),
+      check("details")
+        .isLength({ max: 320 })
+        .withMessage("جزئیات نمی‌تواند بیشتر از 320 کلمه باشد"),
     ];
   }
 })();

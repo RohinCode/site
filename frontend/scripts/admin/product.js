@@ -51,6 +51,12 @@ export default function showAddProduct() {
         placeholder="دسته بندی را وارد کنید"
         required
       />
+      <input
+        name="details"
+        type="text"
+        placeholder="جزئیات محصول را وارد کنید"
+         maxlength="320"
+      />
 
       <label>
         <input type="checkbox" name="hotOffer" />

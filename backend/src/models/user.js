@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   address: {
     type: String,
     default: null,
-    maxlength: [200, "آدرس نمی‌تواند بیشت از 200 کاراکتر باشد"],
+    maxlength: [100, "آدرس نمی‌تواند بیشت از 100 کاراکتر باشد"],
   },
   phoneNamber: {
     type: String,
