@@ -11,8 +11,8 @@ body {
   height: 100dvh;
 }
 
-*::selection{
-  background: #111cb9;
+*::selection {
+  background: #115696;
   color: white;
 }
 

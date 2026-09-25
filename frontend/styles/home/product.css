@@ -1,28 +1,101 @@
 #subTitle {
-  text-align: center;
-  width: 20%;
-  margin: 50px auto;
-  margin-bottom: 0;
-  border: 2px solid #e74c3c;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 9px 18px;
-  background: transparent;
-  color: #e74c3c;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    position: relative;
+
+    width: fit-content;
+    max-width: 90%;
+
+    margin: clamp(35px, 6vw, 65px) auto clamp(25px, 4vw, 40px);
+    padding: clamp(8px, 1.5vw, 12px) clamp(18px, 4vw, 32px);
+
+    text-align: center;
+
+    color: #0b1b34;
+    background: #f7fafc;
+
+    font-size: clamp(17px, 2.2vw, 23px);
+    font-weight: 800;
+    line-height: 1.5;
+
+    border: 1px solid #e2e7f0;
+    border-radius: 14px;
+
+    box-shadow: 0 7px 22px rgba(11, 27, 52, 0.08);
+
+    white-space: nowrap;
 }
 
-#subTitle:hover {
-  background: linear-gradient(0deg, #9e0202, #e74c3c);
-  color: white;
-  transform: translateY(-0px);
-  box-shadow: 0 5px 15px #00000069;
+
+/* خط‌های دو طرف */
+#subTitle::before,
+#subTitle::after {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: clamp(20px, 5vw, 55px);
+    height: 3px;
+
+    background: #285392;
+    border-radius: 20px;
+}
+
+
+/* سمت راست */
+#subTitle::before {
+    right: calc(100% + clamp(10px, 2vw, 18px));
+}
+
+
+/* سمت چپ */
+#subTitle::after {
+    left: calc(100% + clamp(10px, 2vw, 18px));
+}
+
+
+/* موبایل */
+@media (max-width: 600px) {
+
+    #subTitle {
+        max-width: 75%;
+        white-space: normal;
+
+        padding: 8px 18px;
+        border-radius: 11px;
+    }
+
+    #subTitle::before,
+    #subTitle::after {
+        width: 20px;
+    }
+
+    #subTitle::before {
+        right: calc(100% + 8px);
+    }
+
+    #subTitle::after {
+        left: calc(100% + 8px);
+    }
+}
+
+
+/* موبایل خیلی کوچک */
+@media (max-width: 380px) {
+
+    #subTitle {
+        font-size: 16px;
+        padding: 7px 14px;
+    }
+
+    #subTitle::before,
+    #subTitle::after {
+        width: 14px;
+    }
 }
 
 .offer-product-section {
-  padding: 90px 15px;
+  padding: 20px 15px;
   font-size: 1em;
   border-color: red;
   margin: 0;
@@ -43,6 +116,7 @@
   border-radius: 2px;
   padding: 5px;
   max-width: 450px;
+  transition: all .3s ease-in-out;
 }
 
 .hiddenDetails {
@@ -59,8 +133,6 @@
 .shopping-card .img-sec {
   position: relative;
 }
-
-
 
 .shopping-card .img-sec img {
   width: 60%;
@@ -85,20 +157,35 @@
 .shopping-card .title {
   color: #333;
   margin: 15px;
+  margin-bottom: 0px;
 }
 
+.shopping-card .title h3 {
+  margin-bottom: 8px;
+}
+
+
 .shopping-card .buttons {
-  margin-top: auto;
+  margin-top: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 15px;
+  border-top: 1px solid #e3e9f3;
+  padding-top: 6px;
 }
 
 .shopping-card .buttons .right .price {
   color: #3f3f3f;
   font-weight: bold;
 }
+
+.price span {
+  font-weight: 500;
+  font-size: 0.8em;
+  color: #635f5f;
+}
+
 .shopping-card .buttons .left {
   display: flex;
 }
@@ -108,8 +195,8 @@
   margin-left: 5px;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(45, 98, 167);
-  width: 25px;
+  background-color: #1f4b92;
+  width: 20px;
   padding: 8px 12px;
   border-radius: 20px;
   cursor: pointer;
@@ -117,11 +204,12 @@
   direction: ltr;
 }
 .extend-btn:hover {
-  width: 85px;
+  width: 73px;
 }
 
 .extend-btn:hover .b-text {
   display: block;
+  font-size: 0.95em;
 }
 
 .extend-btn span {
@@ -148,68 +236,55 @@
   direction: ltr;
 }
 
-.dragble-list .title {
-  padding: 0px 20px;
-  padding-bottom: 20px;
-}
-
 .dragble-list h3 {
   font-size: 1.2em;
   color: #444;
   text-align: center;
 }
 
-.detailsTitle {
-  padding-top: 5px;
-}
-
 .quantity {
-  color: #6493f8;
-  border: 2px solid #6493f8;
-  border-radius: 7px;
-  margin: 10px 5px;
-   margin-top: 30px;
-  padding: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 16px 21px;
+  font-size: 0.78em;
+  font-weight: 600;
+  color: #2948d1;
+  background: #ecf4ff;
+  border: 1px solid #c2daff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  width: fit-content;
 }
 
-/*دسته بندی*/
-.category {
-  margin: 0px 0;
+.quantity.low-stock {
+  color: #d9480f;
+  background: #fff2ec;
+  border: 1px solid #ffd8c2;
 }
-.category nav {
-  display: flex;
-  align-items: center;
-  border: 2px solid #444;
-  margin: 0 20px;
-  padding: 20px;
-  border-radius: 10px;
-}
+
+
 .catgoryTitle {
   font-weight: normal;
   padding: 10px 40px;
 }
 
-.category nav div a img {
-  width: 100px;
-  height: 100px;
-}
-.category nav div h4 {
-  font-weight: normal;
-  cursor: pointer;
-}
-.category nav div {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+
+.hiddenDetails .detailsTitle {
+  padding-top: 5px;
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
-@media (max-width: 660px) {
-  #subTitle {
-    width: 40%;
-  }
+.hiddenDetails p {
+  font-size: 0.85em;
+  color: #555a63;
+  line-height: 1.7;
+  margin-bottom: 12px;
 }
+
 @media (max-width: 993px) {
   .shopping-card {
     max-width: 380px;
@@ -236,11 +311,7 @@
     max-width: 260px;
   }
 }
-@media (max-width: 370px) {
-  #subTitle {
-    width: 50%;
-  }
-}
+
 
 @media (max-width: 280px) {
   .shopping-card {
@@ -248,4 +319,193 @@
     min-width: 170px;
     max-width: 220px;
   }
+}
+
+
+.category {
+    width: 92%;
+    max-width: 1250px;
+    margin: 70px auto;
+}
+
+.catgoryTitle {
+    text-align: center;
+    color: #0b1b34;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 35px;
+}
+
+/* خط زیر عنوان */
+.catgoryTitle::after {
+    content: "";
+    display: block;
+    width: 55px;
+    height: 4px;
+    background: #285392;
+    border-radius: 20px;
+    margin: 12px auto 0;
+}
+
+
+/* ردیف دسته بندی */
+.category .row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    margin: 0;
+}
+
+
+/* کارت */
+.category .row > div {
+    border: 1px solid #e7ebf1;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* هاور کارت */
+.category .row > div:hover {
+    transform: translateY(-8px);
+    border-color: #285392;
+    box-shadow: 0 15px 35px rgba(11, 27, 52, 0.12);
+}
+
+
+/* محل عکس */
+.category .row a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 145px;
+
+    overflow: hidden;
+}
+
+
+/* عکس */
+.category .row img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    transition: transform 0.35s ease;
+}
+
+
+/* بزرگ شدن عکس */
+.category .row > div:hover img {
+    transform: scale(1.1);
+}
+
+
+/* اسم دسته */
+.category .row h4 {
+    color: #1f2937;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 15px 0 5px;
+    transition: color 0.3s ease;
+}
+
+
+.category .row > div:hover h4 {
+    color: #285392;
+}
+
+
+/* ========================= */
+/* تبلت */
+/* ========================= */
+
+@media (max-width: 1000px) {
+
+    .category {
+        width: 90%;
+        margin: 55px auto;
+    }
+
+    .category .row {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+
+    .category .row a {
+        height: 150px;
+    }
+
+}
+
+
+/* ========================= */
+/* موبایل */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    .category {
+        width: 92%;
+        margin: 45px auto;
+    }
+
+    .catgoryTitle {
+        font-size: 23px;
+        margin-bottom: 25px;
+    }
+
+    .category .row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .category .row > div {
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .category .row a {
+        height: 125px;
+        border-radius: 12px;
+    }
+
+    .category .row img {
+        width: 88%;
+        height: 88%;
+    }
+
+    .category .row h4 {
+        font-size: 14px;
+        margin-top: 11px;
+    }
+
+}
+
+
+/* ========================= */
+/* موبایل خیلی کوچک */
+/* ========================= */
+
+@media (max-width: 380px) {
+
+    .category .row {
+        gap: 10px;
+    }
+
+    .category .row a {
+        height: 110px;
+    }
+
+    .category .row h4 {
+        font-size: 13px;
+    }
+
 }

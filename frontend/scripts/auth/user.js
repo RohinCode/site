@@ -4,7 +4,7 @@ let Admindata;
 
 async function start() {
   if (!token) {
-    return (window.location.href = "./login.html");
+    return (window.location.href = "/login");
   }
   try {
     const response = await fetch("http://localhost:3000/api/user/me", {
@@ -15,7 +15,7 @@ async function start() {
     });
     if (!response.ok) {
       localStorage.removeItem("disjiRohinToken");
-      window.location.href = "./login.html";
+      window.location.href = "/login";
       return false;
     }
   } catch (error) {

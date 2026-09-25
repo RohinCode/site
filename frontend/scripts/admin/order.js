@@ -23,18 +23,21 @@ export default async function showOrders() {
     }
     if (!Array.isArray(result.data)) {
       left.innerHTML = `
-      <section class="orders-page">
-      <h2>سفارش‌ها</h2>
-      <p>${result.message}</p>
-    </section>
+      <div class="empty-cart empty-orders">
+        <div class="empty-cart-icon">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <h2>هنوز سفارشی ثبت نشده</h2>
+        <p>تا الان هیچ سفارشی از طرف کاربران ثبت نشده. سفارش‌های جدید همین‌جا نمایش داده می‌شن.</p>
+      </div>
+
+
     `;
       return;
     }
 
-    console.log(result);
     allOrders = result.data;
     currentPage = 0;
-    console.log(result);
 
     renderOrders();
   } catch (error) {

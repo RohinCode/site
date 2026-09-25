@@ -6,7 +6,7 @@ let Admindata;
 
 async function start() {
   if (!token) {
-    return (window.location.href = "./login.html");
+    return (window.location.href = "/login");
   }
   try {
     const response = await fetch("http://localhost:3000/api/admin", {
@@ -16,7 +16,7 @@ async function start() {
       },
     });
     if (!response.ok) {
-      return (window.location.href = "./login.html");
+      return (window.location.href = "/login");
     }
     result = await response.json();
     console.log(result);

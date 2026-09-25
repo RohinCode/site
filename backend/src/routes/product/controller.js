@@ -44,6 +44,7 @@ module.exports = new (class extends controller {
       name: req.body.name,
       star: req.body.star,
       price: req.body.price,
+      quantity: req.body.quantity,
       category: req.body.category,
       hotOffer: req.body.hotOffer === "on",
       isSuggest: req.body.isSuggest === "on",

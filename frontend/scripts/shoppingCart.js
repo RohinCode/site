@@ -24,7 +24,7 @@ function priceToNumber(price) {
 
 async function start() {
   if (!token) {
-    window.location.href = "./user/login.html";
+    window.location.href = "/login";
     return;
   }
 
@@ -42,7 +42,7 @@ async function start() {
     if (!response.ok) {
       if (result.message === "invalid token") {
         localStorage.removeItem("disjiRohinToken");
-        window.location.href = "./user/login.html";
+        window.location.href = "/login";
       }
 
       if (result.message === "پیدا نشد") {
@@ -50,7 +50,15 @@ async function start() {
         main.style.justifyContent = "center";
         main.style.alignItems = "center";
         main.style.textAlign = "center";
-        main.innerHTML = "<h1>سبد خرید شما خالی است</h1>";
+        main.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2>سبد خرید شما خالیه</h2>
+        <p>هنوز محصولی به سبدت اضافه نکردی. یه سر به فروشگاه بزن.</p>
+        <a href="/" class="empty-cart-btn">مشاهده محصولات</a>
+      </div>`;
         return;
       }
       console.log(result);
@@ -64,7 +72,15 @@ async function start() {
       main.style.justifyContent = "center";
       main.style.alignItems = "center";
       main.style.textAlign = "center";
-      main.innerHTML = "<h1>سبد خرید شما خالی است</h1>";
+      main.innerHTML = `
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2>سبد خرید شما خالیه</h2>
+        <p>هنوز محصولی به سبدت اضافه نکردی. یه سر به فروشگاه بزن.</p>
+        <a href="/" class="empty-cart-btn">مشاهده محصولات</a>
+      </div>`;
       return;
     }
 
@@ -190,7 +206,7 @@ function createCart(cart) {
 
   complateBtn.addEventListener("click", async () => {
     if (!token) {
-      window.location.href = "./user/login.html";
+      window.location.href = "/login";
       return;
     }
 
@@ -232,7 +248,7 @@ function createCart(cart) {
             </ul>
 
             <button id="continueBtn">
-              <a href="./user/user.html">رفتن به پروفایل</a>
+              <a href="/user/">رفتن به پروفایل</a>
             </button>
           </div>
         `;
@@ -311,7 +327,7 @@ function innerhtml() {
       <li>محصول به آدرسی که قبلاً در حساب کاربری خود ثبت کرده‌اید ارسال می‌شود.</li>
       <li>ارسال محصول معمولاً حدود ۲ تا ۳ روز کاری طول می‌کشد.</li>
     </ul>
-        <button class="btn"><a href=".././index.html">برگشت به صفحه‌ی اصلی</a></button>
+        <button class="btn"><a href="/">برگشت به صفحه‌ی اصلی</a></button>
   </div>`;
     } catch (error) {
       console.log(error);

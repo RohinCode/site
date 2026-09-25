@@ -20,7 +20,7 @@ form.addEventListener("submit", async (e) => {
   if (response.ok) {
     localStorage.setItem("disjiRohinToken", result.data.token);
 
-    window.location.href = "./admin.html";
+    window.location.href = "admin";
   } else {
     alert(result.message);
   }

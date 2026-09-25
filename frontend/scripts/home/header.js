@@ -45,9 +45,9 @@ function checkWidth() {
 
   for (let i = 0; i < images.length; i++) {
     if (window.innerWidth <= 490) {
-      images[i].src = `./src/images/header[2]${i + 1}.webp`;
+      images[i].src = `/src/images/header[2]${i + 1}.webp`;
     } else {
-      images[i].src = `./src/images/header${i + 1}.webp`;
+      images[i].src = `/src/images/header${i + 1}.webp`;
     }
   }
 }

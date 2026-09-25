@@ -14,8 +14,22 @@ export async function showReports() {
 
     if (!response.ok) {
       if (response.status === 400) {
-        return (left.innerHTML = `<h1>گزارش‌ها</h1>
-        <p>گزارشی نداریم</p>`);
+        return (left.innerHTML = `
+          <div class="empty-reports">
+            <svg class="empty-reports-chart" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+              <line x1="14" y1="86" x2="150" y2="86" stroke="#dfe3ea" stroke-width="2" stroke-linecap="round"/>
+              <rect x="26" y="66" width="18" height="20" rx="3" fill="#e4e9f2"/>
+              <rect x="58" y="50" width="18" height="36" rx="3" fill="#dbe2f0"/>
+              <rect x="90" y="34" width="18" height="52" rx="3" fill="#cfd9ee"/>
+              <rect x="122" y="58" width="18" height="28" rx="3" fill="#e4e9f2"/>
+              <circle cx="99" cy="20" r="13" fill="#0b1b34"/>
+              <path d="M93 20l4 4 8-8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+  <h2>هنوز گزارشی برای نمایش نیست</h2>
+  <p>به محض ثبت اولین فروش، آمار محصولات پرفروش و درآمد همین‌جا نمایش داده می‌شه.</p>
+</div>
+          `);
       }
       console.log(result);
       return;
@@ -39,6 +53,7 @@ export async function showReports() {
     </div>
   </div>
 
+      ${buildReportsChart()}
 
   <div class="reports-list">
 
@@ -62,11 +77,11 @@ export async function showReports() {
     })
     .join(" ")}
 
-
   </div>
 
   <button id="refresh">حذف این گزارشات</button>
 </section>`;
+createReportsChart(result.data);
 
     document.querySelector("#refresh").addEventListener("click", async () => {
       try {
@@ -86,7 +101,6 @@ export async function showReports() {
         }
 
         window.location.reload();
-        console.log(result);
       } catch (error) {
         console.log(error);
       }
@@ -96,32 +110,100 @@ export async function showReports() {
   }
 }
 
-export function showSupport() {
-  left.innerHTML = `
-    <section class="support">
+function buildReportsChart() {
+  return`
+    <div class="reports-chart-wrap">
 
-      <h2>
-        <i class="fa-solid fa-headset"></i>
-        پشتیبانی
-      </h2>
+      <div class="reports-chart-header">
+        <div>
+          <h3>فروش بر اساس دسته‌بندی</h3>
+          <p>سهم هر دسته از مجموع فروش</p>
+        </div>
+      </div>
 
-      <p>
-        اگر مشکلی در سایت داشتید به من پیام دهید
-      </p>
+      <div class="reports-chart">
+        <canvas id="reportsChart"></canvas>
+      </div>
 
-      <p>
-        بهترین راه برای ارتباط با من، از طریق ربات تلگرام است.
-      </p>
+      </div>
+      `;
+    }
 
-      <a
-        class="telegram-link"
-        href="https://t.me/RohinCodeBot"
-        target="_blank"
-      >
-        <i class="fa-brands fa-telegram"></i>
-        ارتباط با من در تلگرام
-      </a>
+    function createReportsChart(data) {
+      const canvas = document.querySelector("#reportsChart");
 
-    </section>
-  `;
+      if (!canvas) {
+        console.log("reportsChart پیدا نشد");
+        return;
+      }
+
+      const labels = data.map((item) => item.category);
+      const values = data.map((item) => item.quantity);
+
+      new Chart(canvas, {
+        type: "doughnut",
+
+        data: {
+          labels,
+
+          datasets: [
+            {
+              data: values,
+
+              backgroundColor: [
+                "#3d6fae",
+                "#f00000",
+                "#91ff00",
+                "#fbff10",
+                "#ec87dc",
+                "#390153",
+                "#922872",
+                "#4bdaf3",
+                "#f1880f",
+              ],
+
+              borderColor: "#fff",
+              borderWidth: 3,
+
+              hoverOffset: 8,
+            },
+          ],
+        },
+
+options: {
+  responsive: true,
+  maintainAspectRatio: false,
+
+  cutout: "65%",
+
+  plugins: {
+    legend: {
+      position: window.innerWidth <= 600 ? "bottom" : "right",
+
+      labels: {
+        usePointStyle: true,
+        pointStyle: "circle",
+        padding: 14,
+
+        font: {
+          family: "IranSans",
+          size: window.innerWidth <= 400 ? 11 : 13
+        }
+      }
+    },
+
+    tooltip: {
+      rtl: true,
+
+      callbacks: {
+        label: function (context) {
+          const value = context.raw;
+
+          return `${value} عدد`;
+        }
+      }
+    }
+  }
 }
+      });
+    }

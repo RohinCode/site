@@ -94,7 +94,7 @@ async function myInfo() {
     const logout = document.querySelector(".logout");
     logout.addEventListener("click", (e) => {
       localStorage.removeItem("disjiRohinToken");
-      window.location.href = "../../index.html";
+      window.location.href = "/";
     });
     const save = document.querySelector("#save");
 

@@ -22,7 +22,7 @@ form.addEventListener("submit", async (e) => {
   if (response.ok) {
     localStorage.setItem("disjiRohinToken", result.data.token);
 
-    window.location.href = "./user.html";
+    window.location.href = "/user";
   } else {
     alert(result.message);
   }

@@ -1,7 +1,8 @@
 const items = document.querySelectorAll(".menu-btns .item");
 export const left = document.querySelector(".left");
 export const domin = "http://localhost:3000";
-import { showReports, showSupport } from "./report.js";
+import { showReports } from "./report.js";
+import  showSupport from "./support.js";
 import showProfile from "./profile.js";
 import showAddProduct from "./product.js";
 import showOrders from "./order.js";

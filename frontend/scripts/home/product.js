@@ -109,13 +109,18 @@ function createCategorySection(data, title, category) {
 }
 
 function createProductCart(product, shoppingCard) {
+  const LOW_STOCK_THRESHOLD = 5;
   shoppingCard.innerHTML = `
   <div class="hiddenDetails">
    ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
   <div class="stars"></div>
       <h3 class="detailsTitle">${product.name}</h3>
-${product.details ? `<p>${product.details}</p>` : "این محصول جزئیات ندارد"}
-<h4 class="quantity">${product.quantity} عدد موجود در انبار</h4>
+      <p>${product.details ? `${product.details}</p>` : "این محصول جزئیات ندارد"}
+       ${
+      product.quantity < LOW_STOCK_THRESHOLD
+        ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
+        : `<h4 class="quantity">${product.quantity} عدد در انبار موجود است</h4>`
+    }
   <div class="extend-btn back">
             <span class="b-text">برگشت</span>
             <span class="b-icon">
@@ -132,10 +137,17 @@ ${product.details ? `<p>${product.details}</p>` : "این محصول جزئیا�
     <div class="title">
       <h3>${product.name}</h3>
     </div>
+
+    ${
+      product.quantity < LOW_STOCK_THRESHOLD
+        ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
+        : `<h4 class="quantity">${product.quantity} عدد در انبار موجود است</h4>`
+    }
+
     <div class="buttons">
       <div class="right">
         <span class="price">
-          ${product.price}
+          ${product.price} <span>تومان</span>
         </span>
       </div>
 
@@ -244,6 +256,135 @@ ${product.details ? `<p>${product.details}</p>` : "این محصول جزئیا�
   });
 }
 
+
+// ===== رندر کارت محصول — نسخه حرفه‌ای =====
+// منطق fetch / سبد خرید دست‌نخورده باقی مونده، فقط ظاهر و ساختار به‌روز شده
+
+function renderShoppingCard(product, shoppingCard) {
+  const LOW_STOCK_THRESHOLD = 5; // زیر این عدد، هشدار موجودی نشون داده میشه
+
+  shoppingCard.innerHTML =`
+  <div class="hiddenDetails">
+    ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
+    <div class="stars"></div>
+    <h3 class="detailsTitle">${product.name}</h3>
+    <p>${product.details ? product.details : "این محصول جزئیات ندارد"}</p>
+    <h4 class="quantity ${product.quantity < LOW_STOCK_THRESHOLD ? "low-stock" : ""}">
+      ${product.quantity < LOW_STOCK_THRESHOLD ?` فقط ${product.quantity} عدد باقی مانده` : ""}
+    </h4>
+    <div class="extend-btn back">
+      <span class="b-text">برگشت</span>
+      <span class="b-icon"><i class="fa-solid fa-arrow-left"></i></span>
+    </div>
+  </div>
+
+  <div class="contact">
+    <div class="img-sec">
+      <img src="${product.img}" alt="${product.name}" />
+      ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
+      <div class="stars"></div>
+    </div>
+
+    <div class="title">
+      <h3>${product.name}</h3>
+    </div>
+
+    ${
+      product.quantity < LOW_STOCK_THRESHOLD
+        ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
+        : ""
+    }
+
+    <div class="buttons">
+      <div class="right">
+        <span class="price">${product.price}</span>
+      </div>
+      <div class="left">
+        <div class="extend-btn buy">
+          <span class="b-text">خرید</span>
+          <span class="b-icon"><i class="fas fa-shopping-cart"></i></span>
+        </div>
+        <div class="extend-btn details">
+          <span class="b-text">جزئیات</span>
+          <span class="b-icon"><i class="fa-solid fa-circle-info"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ستاره‌ها
+  const starBox = shoppingCard.querySelectorAll(".stars");
+  starBox.forEach((s) => {
+    for (let i = 0; i < product.star; i++) {
+      s.innerHTML += `<i class="fas fa-star"></i>`;
+    }
+  });
+
+  // دکمه خرید همین محصول
+  const buyBtn = shoppingCard.querySelector(".buy");
+
+  buyBtn.addEventListener("click", async () => {
+    try {
+      const response = await fetch(`${domin}/api/cart/add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({ productId: product._id }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.log(result.message);
+        setTimeout(() => {
+          buyBtn.innerHTML =
+            `<span class="b-text">قبلاً اضافه شده</span>`
+            `<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
+        }, 300);
+        return;
+      }
+
+      setTimeout(() => {
+        buyBtn.innerHTML =
+          `<span class="b-text">اضافه شد</span>`
+          `<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
+      }, 300);
+
+      console.log("محصول با موفقیت به سبد اضافه شد");
+    } catch (error) {
+      console.log(error);
+      if (!token) {
+        shoppingCard.innerHTML = "برای سفارش باید وارد شوید";
+      }
+    }
+  });
+
+  // نمایش / بازگشت از جزئیات
+  const details = shoppingCard.querySelector(".details");
+  const back = shoppingCard.querySelector(".back");
+  let originalHeight;
+
+  details.addEventListener("click", () => {
+    if (!originalHeight) originalHeight = shoppingCard.offsetHeight;
+    setTimeout(() => {
+      shoppingCard.querySelector(".hiddenDetails").style.display = "block";
+      shoppingCard.querySelector(".contact").style.display = "none";
+      shoppingCard.style.height = `${originalHeight}px`;
+    }, 300);
+  });
+
+  back.addEventListener("click", () => {
+    setTimeout(() => {
+      shoppingCard.querySelector(".hiddenDetails").style.display = "none";
+      shoppingCard.querySelector(".contact").style.display = "block";
+      shoppingCard.style.height = `${originalHeight}px`;
+    }, 300);
+  });
+}
+
+
 async function getCategoryProducts(category, title) {
   try {
     const response = await fetch(`${domin}/api/product/${category}`);
@@ -273,3 +414,4 @@ getCategoryProducts("laptop", "دستـه بـندی لپ‌تاپ");
 getCategoryProducts("headset", "دستـه بـندی هدست");
 
 getCategoryProducts("airpod", "دستـه بـندی ایرپاد");
+getCategoryProducts("mobile", "دستـه بـندی موبایل");

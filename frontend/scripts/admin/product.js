@@ -46,6 +46,12 @@ export default function showAddProduct() {
       />
 
       <input
+        name="quantity"
+        type="number"
+        placeholder="تعداد محصول را وارد کنید"
+      />
+
+      <input
         name="category"
         type="text"
         placeholder="دسته بندی را وارد کنید"
