@@ -109,7 +109,7 @@ function createCategorySection(data, title, category) {
 }
 
 function createProductCart(product, shoppingCard) {
-  const LOW_STOCK_THRESHOLD = 5;
+  const LOW_STOCK_THRESHOLD = 4;
   shoppingCard.innerHTML = `
   <div class="hiddenDetails">
    ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}

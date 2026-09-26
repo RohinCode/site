@@ -201,19 +201,29 @@ module.exports = new (class extends controller {
     });
   }
 
-async checkDetails(req, res) {
-  const products = await this.Product.find();
+  async checkDetails(req, res) {
+    const products = await this.Product.find();
 
-  for (const product of products) {
-    if (!product.details) {
-      product.details = "این محصول جزئیات ندارد.";
-      await product.save();
+    for (const product of products) {
+      if (!product.details) {
+        product.details = "این محصول جزئیات ندارد.";
+        await product.save();
+      }
     }
+
+    this.response({
+      res,
+      message: "جزئیات محصولات بررسی و تکمیل شد",
+    });
   }
 
-  this.response({
-    res,
-    message: "جزئیات محصولات بررسی و تکمیل شد",
-  });
-}
+  async me(req, res) {
+    const user = await this.Registered.find({ user: req.user._id }).populate(
+      "products.productId",
+    );
+    if (user.length == 0) {
+      this.response({ res, message: "شما سفارشی ندارید", code: 400 });
+    }
+    this.response({ res, message: "لیست سفارش‌های شما", data: user });
+  }
 })();

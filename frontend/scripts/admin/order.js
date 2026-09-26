@@ -21,20 +21,24 @@ export default async function showOrders() {
       console.log(result);
       return;
     }
-    if (!Array.isArray(result.data)) {
-      left.innerHTML = `
-      <div class="empty-cart empty-orders">
-        <div class="empty-cart-icon">
-          <i class="fas fa-clipboard-list"></i>
-        </div>
-        <h2>هنوز سفارشی ثبت نشده</h2>
-        <p>تا الان هیچ سفارشی از طرف کاربران ثبت نشده. سفارش‌های جدید همین‌جا نمایش داده می‌شن.</p>
+    if (!Array.isArray(result.data) || result.data.length === 0) {
+  left.innerHTML =`
+    <div class="empty-cart empty-orders">
+      <div class="empty-cart-icon">
+        <i class="fas fa-clipboard-list"></i>
       </div>
 
+      <h2>هنوز سفارشی ثبت نشده</h2>
 
-    `;
-      return;
-    }
+      <p>
+        تا الان هیچ سفارشی از طرف کاربران ثبت نشده.
+        سفارش‌های جدید همین‌جا نمایش داده می‌شن.
+      </p>
+    </div>
+  `;
+
+  return;
+}
 
     allOrders = result.data;
     currentPage = 0;
@@ -46,7 +50,6 @@ export default async function showOrders() {
 }
 
 function renderOrders() {
-  console.log(2);
   const start = currentPage * ORDERS_PER_PAGE;
   const end = start + ORDERS_PER_PAGE;
 
@@ -76,7 +79,6 @@ function renderOrders() {
 
         ${orders
           .map((order, index) => {
-            console.log(order.user);
             const productsHTML = order.products
 
               .map((product) => {
@@ -301,7 +303,6 @@ function renderOrders() {
         }
 
         window.location.reload();
-        console.log(result);
       } catch (error) {
         console.log(error);
       }

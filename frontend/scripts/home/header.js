@@ -52,6 +52,14 @@ function checkWidth() {
   }
 }
 
+const searchBtn = document.querySelector(".search-icon");
+const searchInp = document.querySelector(".search-box input");
+searchBtn.addEventListener("click", () => {
+  if (searchInp.value.trim() == "") return;
+  console.log(searchInp.value);
+  searchInp.value = "";
+});
+
 checkWidth();
 
 window.addEventListener("resize", checkWidth);

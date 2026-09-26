@@ -22,6 +22,6 @@ form.addEventListener("submit", async (e) => {
 
     window.location.href = "user";
   } else {
-    alert(result.data);
+    alert(result.message);
   }
 });

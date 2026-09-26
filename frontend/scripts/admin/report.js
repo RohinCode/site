@@ -35,7 +35,6 @@ export async function showReports() {
       return;
     }
 
-    console.log(result);
     const totalSales = result.data.reduce((total, report) => {
       return total + report.quantity;
     }, 0);
