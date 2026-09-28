@@ -15,6 +15,7 @@ router.post(
   controller.validate,
   controller.createProduct,
 );
+router.get("/getSearchProduct", controller.searchProduct);
 router.get("/:category", controller.getCategoryProduct);
 
 module.exports = router;

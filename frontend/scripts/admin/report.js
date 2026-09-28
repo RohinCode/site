@@ -155,10 +155,10 @@ function buildReportsChart() {
                 "#91ff00",
                 "#fbff10",
                 "#ec87dc",
-                "#390153",
+                "#f1880f",
                 "#922872",
                 "#4bdaf3",
-                "#f1880f",
+                "#390153",
               ],
 
               borderColor: "#fff",

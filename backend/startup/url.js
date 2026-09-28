@@ -28,6 +28,9 @@ module.exports = function (app, express) {
   app.get("/login", (req, res) => {
     res.sendFile(path.join(frontend, "html/user/login.html"));
   });
+  app.get("/adminLogin", (req, res) => {
+    res.sendFile(path.join(frontend, "html/admin/login.html"));
+  });
 
   app.get("/singup", (req, res) => {
     res.sendFile(path.join(frontend, "html/user/singup.html"));

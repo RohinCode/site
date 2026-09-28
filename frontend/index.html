@@ -24,7 +24,7 @@
           <i class="fa-solid fa-bars"></i>
         </button>
 
-        <h2>دیجی روهین</h2>
+        <h2 class="title">دیجی روهین</h2>
 
         <menu>
           <div class="dropdown">
@@ -59,13 +59,8 @@
           </div>
 
           <a href="/question" class="menu-item">سوالات متداول</a>
+          <a href="#searchPart" class="menu-item">جست‌وجو</a>
         </menu>
-
-        <!-- جست‌وجو -->
-        <div class="search-box">
-          <input type="text" placeholder="جست‌وجو کنید..." />
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        </div>
 
         <a href="/login" class="login">ورود / ثبت‌نام</a>
 
@@ -98,8 +93,8 @@
                 <a href="#headset" class="hidden-item">هدست</a>
               </div>
             </div>
-
             <a href="/question" class="menu-item">سوالات متداول</a>
+            <a href="#searchPart" class="menu-item">جست‌وجو</a>
           </section>
         </div>
       </nav>
@@ -136,17 +131,31 @@
       </section>
     </header>
     <main>
+      <!-- اجناس پیشنهادی -->
       <section class="offer-product-section">
         <div class="row"></div>
       </section>
+
+      <!-- جست‌وجو -->
+      <div class="searchPart" id="searchPart">
+        <h2>دنبال چیزی می‌گردی؟ سرچ کن</h2>
+        <div class="search-box">
+          <input type="text" placeholder="جست‌وجو کنید..." />
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+      </div>
+
+      <!-- نتایج جست‌وجو -->
+      <section id="searchResults"></section>
+
       <section class="category">
-        <h2 id="catgoryTitle" class="catgoryTitle">دستـه‌بنـدی</h2>
+        <h3 id="catgoryTitle" class="catgoryTitle">دستـه‌بنـدی</h3>
         <nav class="row">
           <div>
             <a href="#airpod"><img src="./src/images/air2.webp" alt="" /></a>
             <h4>ایرپاد</h4>
           </div>
-          <div >
+          <div>
             <a href="#handsfree"><img src="./src/images/h1.jpg" alt="" /></a>
             <h4>هنذفری‌</h4>
           </div>
@@ -154,16 +163,12 @@
             <a href="#laptop"><img src="./src/images/laptop3.webp" alt="" /></a>
             <h4>لپ‌تاپ</h4>
           </div>
-          <div >
+          <div>
             <a href="#headset"><img src="./src/images/p2.webp" alt="" /></a>
             <h4>هدست</h4>
           </div>
-          <div >
-            <a href="#"><img src="./src/images/phonecover4.webp" alt="" /></a>
-            <h4>قاب گوشی</h4>
-          </div>
-          <div >
-            <a href=""><img src="./src/images/phone2.webp" alt="" /></a>
+          <div>
+            <a href="#mobile"><img src="./src/images/phone2.webp" alt="" /></a>
             <h4>موبایل</h4>
           </div>
         </nav>
@@ -193,7 +198,7 @@
           <div class="col">
             <h3>پشتیبانی</h3>
             <ul>
-              <li><a href="#">پیگیری سفارش</a></li>
+              <li><a href="/user">مشاهده‌ی سفارش‌های من</a></li>
               <li><a href="/question">سوالات متداول</a></li>
             </ul>
           </div>
@@ -215,7 +220,7 @@
         </div>
         <div class="footer-bottom">
           © تمامی حقوق برای فروشگاه محفوظ است. <br />
-          نسخـه‌ی 1.0.8
+          نسخـه‌ی 1.0.9
         </div>
       </div>
       <nav class="bottom-nav">

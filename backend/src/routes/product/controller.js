@@ -72,4 +72,22 @@ module.exports = new (class extends controller {
       ]),
     });
   }
+
+  async searchProduct(req, res) {
+    const { search } = req.query;
+    let products;
+
+    if (search) {
+      products = await this.Product.find({
+        name: { $regex: search, $options: "i" },
+        show: true,
+      });
+    }
+
+    if (products.length == 0) {
+      return this.response({ res, message: "همچین محصولی نداریم" });
+    }
+
+    this.response({ res, message: "نتیجه", data: products });
+  }
 })();

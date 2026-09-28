@@ -1,6 +1,128 @@
 const token = localStorage.getItem("disjiRohinToken");
 const domin = "http://localhost:3000";
 
+const searchBtn = document.querySelector(".search-icon");
+const searchInp = document.querySelector(".search-box input");
+const searchResults = document.querySelector("#searchResults");
+const category = document.querySelector(".category");
+let visibleCount;
+
+searchBtn.addEventListener("click", search);
+
+searchInp.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    search();
+  }
+});
+
+async function search() {
+  try {
+    if (searchInp.value.trim() === "") return;
+
+    const value = searchInp.value.trim();
+
+    const response = await fetch(
+      `http://localhost:3000/api/product/getSearchProduct?search=${encodeURIComponent(value)}`,
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.log(result);
+      return;
+    }
+
+    const data = result.data;
+    visibleCount = 8;
+
+    // نتایج جست‌وجوی قبلی پاک شوند
+    searchResults.innerHTML = "";
+
+    // حذف دسته‌بندی و هر چیزی که بعد از آن باشد
+    if (category) {
+      let element = category;
+
+      while (element) {
+        const next = element.nextElementSibling;
+
+        element.remove();
+
+        element = next;
+      }
+    }
+
+    // عنوان نتیجه
+    const resultTitle = document.createElement("h2");
+    resultTitle.id = "subTitle";
+    resultTitle.textContent = "نتیجه‌ی جست‌وجو";
+
+    searchResults.appendChild(resultTitle);
+
+    // اگر محصولی پیدا نشد
+    if (!data[0]) {
+      const message = document.createElement("h3");
+      message.id = "weDontHaveThisProduct";
+      message.textContent = "محصولی با این عبارت پیدا نشد.";
+
+      searchResults.appendChild(message);
+
+      searchInp.value = "";
+      return;
+    }
+
+    // ردیف محصولات
+    const row = document.createElement("div");
+    row.classList.add("row");
+
+    searchResults.appendChild(row);
+
+    showProducts(data, row);
+
+    // خالی کردن ورودی
+    searchInp.value = "";
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function showProducts(data, row) {
+  const productsToShow = data.slice(0, visibleCount);
+
+  row.innerHTML = "";
+
+  productsToShow.forEach((product) => {
+    const col = document.createElement("div");
+
+    col.classList.add("col-lg-3", "col-md-4", "col-sm-6", "col-xs-12");
+
+    row.appendChild(col);
+
+    const shoppingCard = document.createElement("div");
+
+    shoppingCard.classList.add("shopping-card");
+    shoppingCard.style.marginTop = "50px";
+
+    col.appendChild(shoppingCard);
+
+    createProductCart(product, shoppingCard);
+  });
+
+  // اگر بیشتر از تعداد نمایش داده‌شده محصول داریم
+  if (visibleCount < data.length) {
+    const moreBtn = document.createElement("button");
+
+    moreBtn.textContent = "نمایش بیشتر";
+    moreBtn.classList.add("show-more");
+    moreBtn.addEventListener("click", () => {
+      visibleCount += 8;
+
+      showProducts(data, row);
+    });
+
+    searchResults.appendChild(moreBtn);
+  }
+}
+
 async function getSuggestProducts() {
   const productsContainer = document.querySelector(
     ".offer-product-section .row",
@@ -117,10 +239,10 @@ function createProductCart(product, shoppingCard) {
       <h3 class="detailsTitle">${product.name}</h3>
       <p>${product.details ? `${product.details}</p>` : "این محصول جزئیات ندارد"}
        ${
-      product.quantity < LOW_STOCK_THRESHOLD
-        ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
-        : `<h4 class="quantity">${product.quantity} عدد در انبار موجود است</h4>`
-    }
+         product.quantity < LOW_STOCK_THRESHOLD
+           ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
+           : `<h4 class="quantity">${product.quantity} عدد در انبار موجود است</h4>`
+       }
   <div class="extend-btn back">
             <span class="b-text">برگشت</span>
             <span class="b-icon">
@@ -256,21 +378,20 @@ function createProductCart(product, shoppingCard) {
   });
 }
 
-
 // ===== رندر کارت محصول — نسخه حرفه‌ای =====
 // منطق fetch / سبد خرید دست‌نخورده باقی مونده، فقط ظاهر و ساختار به‌روز شده
 
 function renderShoppingCard(product, shoppingCard) {
   const LOW_STOCK_THRESHOLD = 5; // زیر این عدد، هشدار موجودی نشون داده میشه
 
-  shoppingCard.innerHTML =`
+  shoppingCard.innerHTML = `
   <div class="hiddenDetails">
     ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
     <div class="stars"></div>
     <h3 class="detailsTitle">${product.name}</h3>
     <p>${product.details ? product.details : "این محصول جزئیات ندارد"}</p>
     <h4 class="quantity ${product.quantity < LOW_STOCK_THRESHOLD ? "low-stock" : ""}">
-      ${product.quantity < LOW_STOCK_THRESHOLD ?` فقط ${product.quantity} عدد باقی مانده` : ""}
+      ${product.quantity < LOW_STOCK_THRESHOLD ? ` فقط ${product.quantity} عدد باقی مانده` : ""}
     </h4>
     <div class="extend-btn back">
       <span class="b-text">برگشت</span>
@@ -339,17 +460,13 @@ function renderShoppingCard(product, shoppingCard) {
       if (!response.ok) {
         console.log(result.message);
         setTimeout(() => {
-          buyBtn.innerHTML =
-            `<span class="b-text">قبلاً اضافه شده</span>`
-            `<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
+          buyBtn.innerHTML = `<span class="b-text">قبلاً اضافه شده</span>``<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
         }, 300);
         return;
       }
 
       setTimeout(() => {
-        buyBtn.innerHTML =
-          `<span class="b-text">اضافه شد</span>`
-          `<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
+        buyBtn.innerHTML = `<span class="b-text">اضافه شد</span>``<span class="b-icon"><i class="fas fa-shopping-cart"></i></span>`;
       }, 300);
 
       console.log("محصول با موفقیت به سبد اضافه شد");
@@ -383,7 +500,6 @@ function renderShoppingCard(product, shoppingCard) {
     }, 300);
   });
 }
-
 
 async function getCategoryProducts(category, title) {
   try {

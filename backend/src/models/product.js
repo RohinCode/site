@@ -17,7 +17,7 @@ const ProductSchema = new mongoose.Schema({
   details: {
     type: String,
     default: "این محصول جزئیات ندارد",
-    maxlength: [320, "جزئیات نمی‌تواند بیشتر از 320 کلمه باشد"],
+    maxlength: [400, "جزئیات نمی‌تواند بیشتر از 400 کلمه باشد"],
   },
   show: { type: Boolean, default: true },
 });

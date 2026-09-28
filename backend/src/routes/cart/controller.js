@@ -222,7 +222,7 @@ module.exports = new (class extends controller {
       "products.productId",
     );
     if (user.length == 0) {
-      this.response({ res, message: "شما سفارشی ندارید", code: 400 });
+      return this.response({ res, message: "شما سفارشی ندارید", code: 400 });
     }
     this.response({ res, message: "لیست سفارش‌های شما", data: user });
   }

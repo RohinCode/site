@@ -1,5 +1,6 @@
 const menuBtn = document.querySelector(".mobile-menu-btn");
 const mobileMenu = document.querySelector(".mobile-menu");
+const main = document.querySelector("main");
 
 menuBtn.addEventListener("click", (e) => {
   e.stopPropagation();
@@ -52,13 +53,6 @@ function checkWidth() {
   }
 }
 
-const searchBtn = document.querySelector(".search-icon");
-const searchInp = document.querySelector(".search-box input");
-searchBtn.addEventListener("click", () => {
-  if (searchInp.value.trim() == "") return;
-  console.log(searchInp.value);
-  searchInp.value = "";
-});
 
 checkWidth();
 
