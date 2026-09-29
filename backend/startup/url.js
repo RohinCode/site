@@ -43,6 +43,9 @@ module.exports = function (app, express) {
   app.get("/shoopingBox", (req, res) => {
     res.sendFile(path.join(frontend, "html/shoopingBox.html"));
   });
+  app.get("/product/:id", (req, res) => {
+    res.sendFile(path.join(frontend, "html/product/product.html"));
+  });
 
   app.use((req, res) => {
     res.status(404).sendFile(path.join(frontend, "html/404.html"));

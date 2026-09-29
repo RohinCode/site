@@ -39,7 +39,6 @@ module.exports = new (class extends controller {
         message: "این محصول قبلا ساخته شده بود",
       });
     }
-    console.log(req.body);
     product = new this.Product({
       name: req.body.name,
       star: req.body.star,
@@ -49,7 +48,7 @@ module.exports = new (class extends controller {
       hotOffer: req.body.hotOffer === "on",
       isSuggest: req.body.isSuggest === "on",
       details: req.body.details,
-      stock: req.body.stock,
+      keywords: req.body.keywords,
       img: `${domin}/images/${req.file.filename}`,
     });
     await product.save();
@@ -69,6 +68,7 @@ module.exports = new (class extends controller {
         "details",
         "quantity",
         "show",
+        "keywords",
       ]),
     });
   }
@@ -79,7 +79,10 @@ module.exports = new (class extends controller {
 
     if (search) {
       products = await this.Product.find({
-        name: { $regex: search, $options: "i" },
+        $or: [
+          { name: { $regex: search, $options: "i" } },
+          { keywords: { $regex: search, $options: "i" } },
+        ],
         show: true,
       });
     }
@@ -89,5 +92,25 @@ module.exports = new (class extends controller {
     }
 
     this.response({ res, message: "نتیجه", data: products });
+  }
+
+  async getProductById(req, res) {
+    const { id } = req.params;
+
+    const product = await this.Product.findById(id);
+
+    if (!product) {
+      return this.response({
+        res,
+        status: 404,
+        message: "محصول پیدا نشد",
+      });
+    }
+
+    this.response({
+      res,
+      message: "محصول دریافت شد",
+      data: product,
+    });
   }
 })();

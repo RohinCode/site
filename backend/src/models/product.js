@@ -17,9 +17,20 @@ const ProductSchema = new mongoose.Schema({
   details: {
     type: String,
     default: "این محصول جزئیات ندارد",
-    maxlength: [400, "جزئیات نمی‌تواند بیشتر از 400 کلمه باشد"],
+    maxlength: [500, "جزئیات نمی‌تواند بیشتر از 500 کلمه باشد"],
+  },
+  keywords: {
+    type: [String],
+    default: [],
   },
   show: { type: Boolean, default: true },
+});
+
+ProductSchema.pre("validate", function () {
+  if (this.keywords.length === 0) {
+    this.keywords.push(this.name);
+  }
+
 });
 
 const Product = mongoose.model("Product", ProductSchema);

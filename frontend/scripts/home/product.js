@@ -5,6 +5,7 @@ const searchBtn = document.querySelector(".search-icon");
 const searchInp = document.querySelector(".search-box input");
 const searchResults = document.querySelector("#searchResults");
 const category = document.querySelector(".category");
+const offerProductSection = document.querySelector(".offer-product-section");
 let visibleCount;
 
 searchBtn.addEventListener("click", search);
@@ -39,8 +40,8 @@ async function search() {
     searchResults.innerHTML = "";
 
     // حذف دسته‌بندی و هر چیزی که بعد از آن باشد
-    if (category) {
-      let element = category;
+    if (offerProductSection) {
+      let element = offerProductSection;
 
       while (element) {
         const next = element.nextElementSibling;
@@ -50,6 +51,9 @@ async function search() {
         element = next;
       }
     }
+
+    const subTitle = document.querySelector("#subTitle");
+    if (subTitle) subTitle.remove();
 
     // عنوان نتیجه
     const resultTitle = document.createElement("h2");
@@ -233,24 +237,6 @@ function createCategorySection(data, title, category) {
 function createProductCart(product, shoppingCard) {
   const LOW_STOCK_THRESHOLD = 4;
   shoppingCard.innerHTML = `
-  <div class="hiddenDetails">
-   ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
-  <div class="stars"></div>
-      <h3 class="detailsTitle">${product.name}</h3>
-      <p>${product.details ? `${product.details}</p>` : "این محصول جزئیات ندارد"}
-       ${
-         product.quantity < LOW_STOCK_THRESHOLD
-           ? `<h4 class="quantity low-stock">فقط ${product.quantity} عدد باقی مانده</h4>`
-           : `<h4 class="quantity">${product.quantity} عدد در انبار موجود است</h4>`
-       }
-  <div class="extend-btn back">
-            <span class="b-text">برگشت</span>
-            <span class="b-icon">
-              <i class="fa-solid fa-arrow-left"></i>
-            </span>
-        </div>
-  </div>
-  <div class="contact">
     <div class="img-sec">
       <img src="${product.img}" alt="${product.name}" />
       ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
@@ -287,8 +273,7 @@ function createProductCart(product, shoppingCard) {
             </span>
         </div>
       </div>
-    </div>
-  </div>`;
+    </div>`;
 
   // ستاره‌ها
   const starBox = shoppingCard.querySelectorAll(".stars");
@@ -351,55 +336,21 @@ function createProductCart(product, shoppingCard) {
   });
 
   const details = shoppingCard.querySelector(".details");
-  const back = shoppingCard.querySelector(".back");
 
-  let originalHeight;
+  details.addEventListener("click", (e) => {
+    console.log("D");
 
-  details.addEventListener("click", () => {
-    if (!originalHeight) {
-      originalHeight = shoppingCard.offsetHeight;
-    }
-
-    setTimeout(() => {
-      shoppingCard.querySelector(".hiddenDetails").style.display = "block";
-      shoppingCard.querySelector(".contact").style.display = "none";
-
-      shoppingCard.style.height = `${originalHeight}px`;
-    }, 300);
-  });
-
-  back.addEventListener("click", () => {
-    setTimeout(() => {
-      shoppingCard.querySelector(".hiddenDetails").style.display = "none";
-      shoppingCard.querySelector(".contact").style.display = "block";
-
-      shoppingCard.style.height = `${originalHeight}px`;
-    }, 300);
+    e.preventDefault();
+    window.location.href = `/product/${product._id}`;
   });
 }
-
-// ===== رندر کارت محصول — نسخه حرفه‌ای =====
-// منطق fetch / سبد خرید دست‌نخورده باقی مونده، فقط ظاهر و ساختار به‌روز شده
 
 function renderShoppingCard(product, shoppingCard) {
   const LOW_STOCK_THRESHOLD = 5; // زیر این عدد، هشدار موجودی نشون داده میشه
 
   shoppingCard.innerHTML = `
-  <div class="hiddenDetails">
-    ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
-    <div class="stars"></div>
-    <h3 class="detailsTitle">${product.name}</h3>
-    <p>${product.details ? product.details : "این محصول جزئیات ندارد"}</p>
-    <h4 class="quantity ${product.quantity < LOW_STOCK_THRESHOLD ? "low-stock" : ""}">
-      ${product.quantity < LOW_STOCK_THRESHOLD ? ` فقط ${product.quantity} عدد باقی مانده` : ""}
-    </h4>
-    <div class="extend-btn back">
-      <span class="b-text">برگشت</span>
-      <span class="b-icon"><i class="fa-solid fa-arrow-left"></i></span>
-    </div>
-  </div>
 
-  <div class="contact">
+
     <div class="img-sec">
       <img src="${product.img}" alt="${product.name}" />
       ${product.hotOffer ? `<span class="hot-offer">پیشنهاد ویژه</span>` : ""}
@@ -431,7 +382,7 @@ function renderShoppingCard(product, shoppingCard) {
         </div>
       </div>
     </div>
-  </div>`;
+  `;
 
   // ستاره‌ها
   const starBox = shoppingCard.querySelectorAll(".stars");
@@ -478,26 +429,12 @@ function renderShoppingCard(product, shoppingCard) {
     }
   });
 
-  // نمایش / بازگشت از جزئیات
   const details = shoppingCard.querySelector(".details");
-  const back = shoppingCard.querySelector(".back");
-  let originalHeight;
+  details.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("w");
 
-  details.addEventListener("click", () => {
-    if (!originalHeight) originalHeight = shoppingCard.offsetHeight;
-    setTimeout(() => {
-      shoppingCard.querySelector(".hiddenDetails").style.display = "block";
-      shoppingCard.querySelector(".contact").style.display = "none";
-      shoppingCard.style.height = `${originalHeight}px`;
-    }, 300);
-  });
-
-  back.addEventListener("click", () => {
-    setTimeout(() => {
-      shoppingCard.querySelector(".hiddenDetails").style.display = "none";
-      shoppingCard.querySelector(".contact").style.display = "block";
-      shoppingCard.style.height = `${originalHeight}px`;
-    }, 300);
+    window.location.href = `/product/${product._id}`;
   });
 }
 

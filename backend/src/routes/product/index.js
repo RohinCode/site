@@ -16,6 +16,7 @@ router.post(
   controller.createProduct,
 );
 router.get("/getSearchProduct", controller.searchProduct);
+router.get("/getProduct/:id", controller.getProductById);
 router.get("/:category", controller.getCategoryProduct);
 
 module.exports = router;

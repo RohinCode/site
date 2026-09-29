@@ -1,5 +1,5 @@
-import { left, domin} from "./changeItem.js";
-import { token} from "./admin.js";
+import { left, domin } from "./changeItem.js";
+import { token } from "./admin.js";
 
 export default function showAddProduct() {
   left.innerHTML = `
@@ -9,13 +9,17 @@ export default function showAddProduct() {
       <ul>
         <li>حتما باید تمام ورودی‌ها را پر کنید</li>
         <li>مطمئن باشید که محصول وارد شده را در انبار دارید</li>
+        <li>امتیاز محصول نباید بیشتر از 6 باشد</li>
         <li>
           تصویر محصول باید با فرمت webp، jpg یا png باشد.
           پیشنهاد می‌کنیم از فرمت webp استفاده کنید
         </li>
         <li>تصویر انتخاب‌شده باید مربوط به همان محصول باشد.</li>
         <li>تصویر انتخاب‌شده حتما و حتما باید 1 در 1 باشد</li>
-        <li>امتیاز محصول نباید بیشتر از 6 باشد</li>
+        <li>پیشنهاد میشه از کلید میان‌بر استفاده کنید تا کاربر راحت‌نر محصول مورد نظر را پیدا کند</li>
+        <li>در قسمت میان‌بر بعد از هر گزینه حتما یک نقطه بزارید</li>
+        <li>در قسمت میان‌بر از کلمات مربوط به محصول استفاده کنید</li>
+        <li>می‌توانید در قسمت جزئیات از html نیز استفاده کنید</li>
         <li>قبل از ثبت، اطلاعات محصول را بررسی کنید.</li>
       </ul>
     </div>
@@ -59,11 +63,15 @@ export default function showAddProduct() {
         required
       />
       <input
-        name="details"
+        name="keywords"
         type="text"
-        placeholder="جزئیات محصول را وارد کنید"
-         maxlength="320"
+        placeholder="کلیدهای میان‌بر برای سرچ رو وارد کنید"
+        required
       />
+
+      <textarea name="details"
+        placeholder="جزئیات محصول را وارد کنید"
+        maxlength="500"></textarea>
 
       <label>
         <input type="checkbox" name="hotOffer" />
@@ -93,33 +101,9 @@ export default function showAddProduct() {
 
     </form>
 
-    <div class="category">
-
-      <h3>انتخاب کردن دسته بندی برای نمایش</h3>
-
-      <div class="row"></div>
-
-      <div>
-        <input
-          type="text"
-          id="writeItem"
-          placeholder="اضافه کردن دسته‌بندی جدید"
-        />
-
-        <button type="button" id="addItems">
-          اضافه کردن
-        </button>
-      </div>
-
-      <button type="button">
-        تایید
-      </button>
-
-    </div>
 `;
 
   setupProductForm();
-  setupCategories();
 }
 
 function setupProductForm() {
@@ -129,64 +113,33 @@ function setupProductForm() {
     event.preventDefault();
 
     const formData = new FormData(form);
+    const keywords = formData.get("keywords");
 
+    formData.set(
+      "keywords",
+      JSON.stringify(
+        keywords
+          .split(".")
+          .map((item) => item.trim())
+          .filter(Boolean),
+      ),
+    );
     try {
-      const response = await fetch(
-        `${domin}/api/product/createProduct`,
-        {
-          method: "POST",
+      const response = await fetch(`${domin}/api/product/createProduct`, {
+        method: "POST",
 
-          headers: {
-            "x-auth-token": token,
-          },
-
-          body: formData,
+        headers: {
+          "x-auth-token": token,
         },
-      );
+
+        body: formData,
+      });
 
       const data = await response.json();
 
       console.log(data);
-
     } catch (error) {
       console.error(error);
     }
-  });
-}
-
-function setupCategories() {
-  const addItems = document.querySelector("#addItems");
-  const writeItem = document.querySelector("#writeItem");
-  const row = document.querySelector(".row");
-
-  addItems.addEventListener("click", () => {
-
-    if (writeItem.value.trim() === "") {
-      return;
-    }
-
-    const label = document.createElement("label");
-
-    label.classList.add(
-      "col-lg-3",
-      "col-md-4",
-      "col-sm-4",
-      "col-xs-6",
-    );
-
-    const input = document.createElement("input");
-
-    input.type = "checkbox";
-
-    const p = document.createElement("p");
-
-    p.innerText = writeItem.value;
-
-    writeItem.value = "";
-
-    label.appendChild(input);
-    label.appendChild(p);
-
-    row.appendChild(label);
   });
 }
