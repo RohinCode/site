@@ -1,0 +1,321 @@
+import { left } from "./changeItem.js";
+import { token, domain } from "./admin.js";
+
+const ORDERS_PER_PAGE = 3;
+
+let currentPage = 0;
+let allOrders = [];
+
+export default async function showOrders() {
+  try {
+    const response = await fetch(`${domain}/api/cart/Registered`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      console.log(result);
+      return;
+    }
+    if (!Array.isArray(result.data) || result.data.length === 0) {
+      left.innerHTML = `
+    <div class="empty-cart empty-orders">
+      <div class="empty-cart-icon">
+        <i class="fas fa-clipboard-list"></i>
+      </div>
+
+      <h2>هنوز سفارشی ثبت نشده</h2>
+
+      <p>
+        تا الان هیچ سفارشی از طرف کاربران ثبت نشده.
+        سفارش‌های جدید همین‌جا نمایش داده می‌شن.
+      </p>
+    </div>
+  `;
+
+      return;
+    }
+
+    allOrders = result.data;
+    currentPage = 0;
+
+    renderOrders();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderOrders() {
+  const start = currentPage * ORDERS_PER_PAGE;
+  const end = start + ORDERS_PER_PAGE;
+
+  const orders = allOrders.slice(start, end);
+
+  left.innerHTML = `
+    <section class="orders-page">
+
+      <div class="orders-header">
+
+        <div>
+          <h2>سفارش‌ها</h2>
+
+          <p>
+            لیست سفارش‌های ثبت‌شده توسط کاربران
+          </p>
+        </div>
+
+        <span class="orders-count">
+          ${allOrders.length} سفارش
+        </span>
+
+      </div>
+
+
+      <div class="orders-list">
+
+        ${orders
+          .map((order, index) => {
+            const productsHTML = order.products
+
+              .map((product) => {
+                return `
+                <div class="order-product">
+
+                  <img
+                    src="${product.productId.img}"
+                    alt="${product.productId.name}"
+                  />
+
+                  <div class="product-info">
+
+                    <h4>
+                      ${product.productId.name}
+                    </h4>
+
+                    <div class="product-details">
+
+                      <span>
+                        قیمت: ${product.productId.price}
+                      </span>
+                      <span>
+                        تعداد: ${product.quantity}
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+              `;
+              })
+              .join("");
+
+            return `
+            <article class="order-card">
+
+              <div class="order-top">
+
+                <div>
+                  <span class="order-number">
+                    سفارش #${start + index + 1}
+                  </span>
+
+                  <span class="order-status">
+                    در انتظار ارسال
+                  </span>
+                </div>
+
+              </div>
+
+
+              <div class="customer-info">
+
+                <div class="customer-title">
+
+                  <i class="fa-solid fa-user"></i>
+
+                  <h3>
+                    اطلاعات سفارش‌دهنده
+                  </h3>
+
+                </div>
+
+
+                <div class="customer-grid">
+
+                  <div class="info-item">
+
+                    <span>
+                      نام
+                    </span>
+
+                    <strong>
+                      ${order.user.name}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="info-item">
+
+                    <span>
+                      ایمیل
+                    </span>
+
+                    <strong>
+                      ${order.user.email}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="info-item">
+
+                    <span>
+                      شماره تماس
+                    </span>
+
+                    <strong>
+                     ${order.user.phoneNamber}
+                    </strong>
+
+                  </div>
+
+
+                  <div class="info-item">
+
+                    <span>
+                      آدرس
+                    </span>
+
+                    <strong>
+                      ${order.user.address}
+                    </strong>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="products-section">
+
+                <div class="products-title">
+
+                  <i class="fa-solid fa-box"></i>
+
+                  <h3>
+                    محصولات سفارش
+                  </h3>
+
+                  <span>
+                   ${order.products.reduce((total, product) => total + product.quantity, 0)} محصول
+                  </span>
+
+                </div>
+
+
+                <div class="order-products">${productsHTML}
+
+                </div>
+
+              </div>
+
+
+              <div class="order-bottom">
+
+                <div class="order-total">
+
+                  <span>
+                    مبلغ کل سفارش
+                  </span>
+
+                  <strong>
+                    ${Number(order.totalPrice).toLocaleString("fa-IR")} تومان
+                  </strong>
+
+                </div>
+
+
+                <button
+                  class="delivered-btn"
+                  type="button"
+                  data-order-id="${order._id}"
+                >
+
+                  <i class="fa-solid fa-check"></i>
+
+                  سفارش تحویل داده شد. حذف محصول از دیتابیس
+                </button>
+
+              </div>
+
+            </article>
+            `;
+          })
+          .join("")}
+
+      </div>
+
+
+      ${
+        end < allOrders.length
+          ? `<button
+              class="next-orders"
+              type="button"
+              id="nextOrders"
+            >
+              نمایش 3 سفارش بعدی
+            </button>`
+          : ""
+      }
+
+    </section>
+  `;
+
+  const deliveredButtons = document.querySelectorAll(".delivered-btn");
+
+  deliveredButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const orderId = button.dataset.orderId;
+
+      try {
+        const response = await fetch(`${domain}/api/cart/isDelivered`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": token,
+          },
+          body: JSON.stringify({
+            orderId: orderId,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          console.log(result);
+          return;
+        }
+
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  });
+
+  const nextOrders = document.querySelector("#nextOrders");
+
+  if (nextOrders) {
+    nextOrders.addEventListener("click", () => {
+      currentPage++;
+
+      renderOrders();
+    });
+  }
+}

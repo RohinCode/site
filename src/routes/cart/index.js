@@ -1,0 +1,13 @@
+const express = require("express");
+const router = express.Router();
+const controller = require("./controller");
+const { isLoggined, isAdmin } = require("../../middlewares/auth");
+router.post("/add", isLoggined, controller.addToCart);
+router.get("/getProdoct", isLoggined, controller.getProdoct);
+router.get("/isComplate", isLoggined, controller.isComplate);
+router.get("/Registered", isLoggined, isAdmin, controller.registered);
+router.get("/myCart", isLoggined, controller.me);
+router.get("/add-four-quantity",  controller.addFourToAllQuantity);
+router.delete("/isDelivered", isLoggined, isAdmin, controller.isDelivered);
+router.delete("/delete", isLoggined, controller.deleteProduct);
+module.exports = router;

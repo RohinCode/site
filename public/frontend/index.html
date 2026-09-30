@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دیجی روهین | فروشگاه لوازم دیجیتال</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/home/headerAndFooter.css" />
+    <link rel="stylesheet" href="/styles/home/flexboxgrid.css" />
+    <link rel="stylesheet" href="/styles/home/product.css" />
+    <link rel="stylesheet" href="/styles/home/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/styles/home/owl.theme.default.min.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav id="fixed-header">
+        <button class="mobile-menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <h2 class="title">دیجی روهین</h2>
+
+        <menu>
+          <div class="dropdown">
+            <span class="menu-item mother-menu">
+              ارتباط با ما
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </span>
+
+            <div class="dropdown-menu">
+              <a href="https://t.me/RohinCode" class="hidden-item">
+                کانال تلگرام
+              </a>
+
+              <a href="https://instagram.com/RohinCode" class="hidden-item">
+                صفحه‌ی اینستاگرام
+              </a>
+            </div>
+          </div>
+
+          <!-- دسته بندی -->
+          <div class="dropdown">
+            <span class="menu-item mother-menu">
+              دسته‌بندی محصولات
+              <i class="fa-solid fa-chevron-down arrow"></i>
+            </span>
+
+            <div class="dropdown-menu">
+              <a href="#laptop" class="hidden-item">لپ‌تاپ</a>
+              <a href="#airpod" class="hidden-item">هنذفری و ایرپاد</a>
+              <a href="#headset" class="hidden-item">هدست</a>
+            </div>
+          </div>
+
+          <a href="/question" class="menu-item">سوالات متداول</a>
+          <a href="#searchPart" class="menu-item">جست‌وجو</a>
+        </menu>
+
+        <a href="/login" class="login">ورود / ثبت‌نام</a>
+
+        <div class="mobile-menu">
+          <section>
+            <div class="dropdown">
+              <span class="menu-item mother-menu">
+                ارتباط با ما
+                <i class="fa-solid fa-chevron-down arrow"></i>
+              </span>
+
+              <div class="dropdown-menu">
+                <a href="https://t.me/RohinCode" class="hidden-item">
+                  کانال تلگرام
+                </a>
+
+                <a href="https://instagram.com/RohinCode" class="hidden-item">
+                  صفحه‌ی اینستاگرام
+                </a>
+              </div>
+            </div>
+            <div class="dropdown">
+              <span class="menu-item mother-menu">
+                دسته‌بندی محصولات
+                <i class="fa-solid fa-chevron-down arrow"></i>
+              </span>
+              <div class="dropdown-menu">
+                <a href="#laptop" class="hidden-item">لپ‌تاپ</a>
+                <a href="#airpod" class="hidden-item">هنذفری و ایرپاد</a>
+                <a href="#headset" class="hidden-item">هدست</a>
+              </div>
+            </div>
+            <a href="/question" class="menu-item">سوالات متداول</a>
+            <a href="#searchPart" class="menu-item">جست‌وجو</a>
+          </section>
+        </div>
+      </nav>
+      <section class="slider">
+        <div class="slides">
+          <div class="item show-it" id="slide1">
+            <img loading="lazy" src="./src/images/header1.webp" alt="" />
+            <!-- <h3>لپ‌تاپ‌های تخفیف‌دار و باکیفیت رو از اینجا بخر!</h3> -->
+          </div>
+          <div class="item" id="slide2">
+            <img loading="lazy" src="./src/images/header2.webp" alt="" />
+          </div>
+          <div class="item" id="slide3">
+            <img loading="lazy" src="./src/images/header3.webp" alt="" />
+          </div>
+          <div class="item" id="slide4">
+            <img loading="lazy" src="./src/images/header4.webp" alt="" />
+          </div>
+          <div class="item" id="slide5">
+            <img loading="lazy" src="./src/images/header5.webp" alt="" />
+          </div>
+          <div class="item" id="slide6">
+            <img loading="lazy" src="./src/images/header6.webp" alt="" />
+          </div>
+        </div>
+        <div class="button">
+          <i onclick="setSlide('slide1', 1)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide2', 2)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide3', 3)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide4', 4)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide5', 5)" class="fas fa-circle"></i>
+          <i onclick="setSlide('slide6', 6)" class="fas fa-circle"></i>
+        </div>
+      </section>
+    </header>
+    <main>
+      <!-- جست‌وجو -->
+      <div class="searchPart" id="searchPart">
+        <h2 id="searchTitle">جست‌وجو</h2>
+        <div class="search-box">
+          <input type="text" placeholder="جست‌وجو کنید..." />
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        </div>
+      </div>
+
+      <!-- نتایج جست‌وجو -->
+      <section id="searchResults"></section>
+
+      <!-- اجناس پیشنهادی -->
+
+      <section class="category">
+        <h3 id="catgoryTitle" class="catgoryTitle">دستـه‌بنـدی</h3>
+        <nav class="row">
+          <div>
+            <a href="#airpod"><img src="./src/images/air2.webp" alt="" /></a>
+            <h4>ایرپاد</h4>
+          </div>
+          <div>
+            <a href="#handsfree"><img src="./src/images/h1.jpg" alt="" /></a>
+            <h4>هنذفری‌</h4>
+          </div>
+          <div>
+            <a href="#laptop"><img src="./src/images/laptop3.webp" alt="" /></a>
+            <h4>لپ‌تاپ</h4>
+          </div>
+          <div>
+            <a href="#headset"><img src="./src/images/p2.webp" alt="" /></a>
+            <h4>هدست</h4>
+          </div>
+          <div>
+            <a href="#mobile"><img src="./src/images/phone2.webp" alt="" /></a>
+            <h4>موبایل</h4>
+          </div>
+        </nav>
+      </section>
+
+      <section class="offer-product-section">
+        <div class="row"></div>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-columns">
+          <div class="col">
+            <h3>درباره ما</h3>
+            <ul>
+              <li><a href="#">داستان برند</a></li>
+              <li><a href="https://t.me/RohinCodeBot">تماس با ما</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h3>دسته‌بندی</h3>
+            <ul>
+              <li><a href="#laptop">لپ‌تاپ</a></li>
+              <li><a href="#handsfree">هنذفری</a></li>
+              <li><a href="#headset">هدست</a></li>
+              <li><a href="#airpod">ایرپاد</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h3>پشتیبانی</h3>
+            <ul>
+              <li><a href="/user">مشاهده‌ی سفارش‌های من</a></li>
+              <li><a href="/question">سوالات متداول</a></li>
+            </ul>
+          </div>
+
+          <div class="col">
+            <h3 class="follow-me">ما را دنبال کنید</h3>
+            <d class="socials">
+              <a href="https://inistagram.com/RohinCode"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="https://t.me/RohinCodeBot"
+                ><i class="fa-regular fa-comment"></i
+              ></a>
+              <a href="https://t.me/RohinCode">
+                <i class="fa-brands fa-telegram"></i
+              ></a>
+            </d>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          © تمامی حقوق برای فروشگاه محفوظ است. <br />
+          نسخـه‌ی 1.1.0
+        </div>
+      </div>
+      <nav class="bottom-nav">
+        <a href="#" class="active">
+          <i class="fa-solid fa-house-chimney"></i>
+          خانه
+        </a>
+        <a href="#catgoryTitle">
+          <i class="fa-solid fa-table-cells-large"></i>
+          دسته‌بندی
+        </a>
+        <a href="/shoopingBox">
+          <i class="fa-solid fa-cart-shopping"></i>
+          سبد خرید
+        </a>
+        <a href="/user">
+          <i class="fa-solid fa-user"></i>
+          پروفایل
+        </a>
+      </nav>
+    </footer>
+
+    <script src="/scripts/home/header.js"></script>
+    <script src="/scripts/home/product.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/scripts/home/owl.carousel.min.js"></script>
+    <script src="/scripts/home/footer.js"></script>
+  </body>
+</html>
