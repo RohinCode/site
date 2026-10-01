@@ -1,4 +1,4 @@
-const config = require("config");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
@@ -12,7 +12,7 @@ async function isLoggined(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(token, config.get("jwt_key"));
+    const decoded = jwt.verify(token, process.env.jwt_key);
 
     const user = await User.findById(decoded._id);
 

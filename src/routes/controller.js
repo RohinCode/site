@@ -2,6 +2,7 @@ const autoBind = require("auto-bind");
 const { validationResult } = require("express-validator");
 const User = require("../models/user");
 const Product = require("../models/product");
+const Message = require("../models/messages");
 const Cart = require("../models/cart");
 const Registered = require("../models/Registered");
 const Report = require("../models/report");
@@ -14,6 +15,7 @@ module.exports = class {
     this.Product = Product;
     this.Cart = Cart;
     this.Report = Report;
+    this.Message = Message;
   }
 
   validationBody(req, res) {

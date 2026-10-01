@@ -1,6 +1,6 @@
 const main = document.querySelector("main");
 import { domain, token } from "../auth/user.js";
-let items
+let items;
 async function myInfo() {
   try {
     const response = await fetch(`${domain}/api/user/me`, {
@@ -37,6 +37,10 @@ async function myInfo() {
           <button class="profile-menu-item changeable" data-page="cart">
             <i class="fa-solid fa-box"></i>
             سفارش‌های من
+          </button>
+          <button class="profile-menu-item changeable" data-page="message">
+            <i class="fa-solid fa-bell"></i>
+            پیام‌ها
           </button>
           <button class="profile-menu-item logout">
             <i class="fa-solid fa-right-from-bracket"></i>
@@ -185,6 +189,10 @@ function changePage(page, accountCard) {
 
   if (page === "cart") {
     showMyCart(accountCard);
+    return;
+  }
+  if (page === "message") {
+    showMessages(accountCard);
     return;
   }
 }
@@ -438,6 +446,121 @@ async function showMyCart(accountCard) {
       </div>
     `;
   }
+}
+
+async function showMessages(accountCard) {
+  try {
+    const response = await fetch(`${domain}/api/messages/getMyMessages`, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        accountCard.innerHTML = `
+          <div class="empty-orders">
+
+            <div class="empty-orders-icon">
+              <i class="fa-solid fa-box-open"></i>
+            </div>
+
+            <h2>پیامی ندارید</h2>
+
+            <p>اگه اتفاق مهمی بیوفته اینجا پیامش بهت ارسال می‌شه</p>
+
+            <a href="/" class="empty-orders-btn">
+              <i class="fa-solid fa-bag-shopping"></i>
+              رفتن به فروشگاه
+            </a>
+
+          </div>
+        `;
+
+        return;
+      }
+      console.log(result);
+      return;
+    }
+
+    const messagesHTML = result.data
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .map((message) => {
+        return `
+    <div class="messageBox">
+      <div class="top">
+        <div class="messageTitle">
+          <button>
+            <i class="fa-solid fa-headset"></i>
+          </button>
+          <h3>${message.title}</h3>
+        </div>
+
+      <p class="time">${formatMessageDate(message.date)}</p>
+      </div>
+
+      <div class="bottom">
+        <p>${message.text}</p>
+      </div>
+    </div>
+  `;
+      })
+      .join("");
+
+    accountCard.innerHTML = `<h2>لیست پیام‌های دریافتی</h2>
+  ${messagesHTML}
+`;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function formatMessageDate(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const dateDay = date.getDate();
+  const dateMonth = date.getMonth();
+  const dateYear = date.getFullYear();
+
+  const nowDay = now.getDate();
+  const nowMonth = now.getMonth();
+  const nowYear = now.getFullYear();
+
+  // ساعت و دقیقه
+  const time = date.toLocaleTimeString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  // امروز
+  if (dateDay === nowDay && dateMonth === nowMonth && dateYear === nowYear) {
+    return ` امروز ${time}`;
+  }
+
+  // دیروز
+  const yesterday = new Date();
+  yesterday.setDate(now.getDate() - 1);
+
+  if (
+    dateDay === yesterday.getDate() &&
+    dateMonth === yesterday.getMonth() &&
+    dateYear === yesterday.getFullYear()
+  ) {
+    return ` دیروز ${time}`;
+  }
+
+  // روزهای قبل
+  return `
+    date.toLocaleDateString("fa-IR", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }) + ، ${time}
+  `;
 }
 
 myInfo();

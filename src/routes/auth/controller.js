@@ -1,7 +1,7 @@
 const controller = require("./../controller");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
-const config = require("config");
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 module.exports = new (class extends controller {
@@ -23,8 +23,7 @@ module.exports = new (class extends controller {
         message: "این نام کاربری قبلا انتخاب شده",
       });
     }
-    // const {email, name, password} = req.body;
-    // user = new this.User({email, name, password});
+
     user = new this.User(_.pick(req.body, ["name", "email", "password"]));
 
     const salt = await bcrypt.genSalt(10);
@@ -32,7 +31,16 @@ module.exports = new (class extends controller {
 
     await user.save();
 
-    const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
+    const token = jwt.sign({ _id: user.id }, process.env.jwt_key);
+
+    const message = new this.Message({
+      title: "خوش اومدی!",
+      text: ` سلام ${user.name}، به جمع ما خوش اومدی. حسابت با موفقیت ساخته شد. حالا می‌تونی یه گشتی تو سایت بزنی و محصولات موردنظرت رو پیدا کنی. امیدواریم تجربه خوبی داشته باشی.`,
+      user: user._id,
+    });
+
+    await message.save();
+
     this.response({
       res,
       message: "کاربر با موفقیت وارد شد",
@@ -57,8 +65,21 @@ module.exports = new (class extends controller {
         message: "نام کاربری یا رمز عبور صحیح نیست",
       });
     }
-    const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
-    this.response({ res, message: "ورود موفقت آمیز", data: { token } });
+    const token = jwt.sign({ _id: user.id }, process.env.jwt_key);
+
+    const message = new this.Message({
+      title: "خوش‌برگشتی",
+      text: `سلام ${user.name}. خوش برگشتی. می‌تونی یه گشتی تو سایت بزنی و سفارشت رو ثبت کنی.`,
+      user: user._id,
+    });
+
+    await message.save();
+
+    this.response({
+      res,
+      message: "ورود موفقت آمیز",
+      data: { token, user: _.pick(user, ["_id", "name", "email"]) },
+    });
   }
 
   async adminLogin(req, res) {
@@ -90,7 +111,18 @@ module.exports = new (class extends controller {
       });
     }
 
-    const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
+    const token = jwt.sign({ _id: user.id }, process.env.jwt_key);
+
+    const message = new this.Message({
+      title: "خوش اومدی!",
+      text: `خوش اومدی به پنل مدیریت، ${user.name} 👋
+
+اینجا می‌تونی محصولات، سفارش‌ها و بخش‌های مختلف سایت رو مدیریت کنی.
+قبل از انجام هر تغییر، از درست بودن اطلاعات مطمئن شو.`,
+      user: user._id,
+    });
+
+    message.save();
 
     this.response({
       res,

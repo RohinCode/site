@@ -304,7 +304,7 @@ function innerhtml() {
         headers: {
           "Content-Type": "application/json",
           "x-auth-token": token,
-          total: totalPrice,
+          totalPrice,
         },
       });
 

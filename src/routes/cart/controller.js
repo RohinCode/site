@@ -65,7 +65,6 @@ module.exports = new (class extends controller {
   }
 
   async isComplate(req, res) {
-    const totalPrice = req.header("total");
     const cart = await this.Cart.findOne({
       user: req.user.id,
     });
@@ -76,6 +75,52 @@ module.exports = new (class extends controller {
         code: 404,
         message: "سبد خرید پیدا نشد",
       });
+    }
+
+    if (cart.products.length === 0) {
+      return this.response({
+        res,
+        code: 400,
+        message: "سبد خرید خالی است",
+      });
+    }
+
+    function priceToNumber(price) {
+      const normalizedPrice = price
+        .replace(/[۰-۹]/g, (digit) => "۰۱۲۳۴۵۶۷۸۹".indexOf(digit))
+        .replace(/[٠-٩]/g, (digit) => "٠١٢٣٤٥٦٧٨٩".indexOf(digit))
+        .replace(/,/g, "")
+        .trim();
+
+      const number = parseFloat(normalizedPrice);
+
+      if (normalizedPrice.includes("میلیون")) {
+        return number * 1000000;
+      }
+
+      if (normalizedPrice.includes("هزار")) {
+        return number * 1000;
+      }
+
+      return number;
+    }
+
+    let totalPrice = 50000;
+
+    for (const item of cart.products) {
+      const product = await this.Product.findById(item.productId);
+
+      if (!product) {
+        return this.response({
+          res,
+          code: 404,
+          message: "یکی از محصولات پیدا نشد",
+        });
+      }
+
+      const price = priceToNumber(product.price);
+
+      totalPrice += price * item.quantity;
     }
 
     const registered = new this.Registered({
@@ -89,6 +134,13 @@ module.exports = new (class extends controller {
     await registered.save();
     await cart.save();
 
+    const message = new this.Message({
+      title: "ثبت شد",
+      text: `سفارش شما با موفقیت ثبت شد و به فروشنده ارسال شد. تحویل محصول 2 تا 3 روز کاری طول می‌کشد.`,
+      user: req.user.id,
+    });
+
+    await message.save();
     this.response({
       res,
       message: "ثبت شد",
@@ -114,7 +166,9 @@ module.exports = new (class extends controller {
   async isDelivered(req, res) {
     const registeredProduct = await this.Registered.findOne({
       _id: req.body.orderId,
-    }).populate("products.productId");
+    })
+      .populate("products.productId")
+      .populate("user");
     if (!registeredProduct) {
       return this.response({ res, message: "این خرید یافت نشد" });
     }
@@ -143,6 +197,14 @@ module.exports = new (class extends controller {
     await this.Registered.deleteOne({
       _id: req.body.orderId,
     });
+
+    const message = new this.Message({
+      title: "تحویل داده شد",
+      text: `سفارش شما تحویل داده شد. امیدوارم راضی بوده باشید. `,
+      user: registeredProduct.user._id,
+    });
+
+    await message.save();
 
     this.response({ res, message: "با موفقیت حذف شد" });
   }
@@ -226,26 +288,4 @@ module.exports = new (class extends controller {
     }
     this.response({ res, message: "لیست سفارش‌های شما", data: user });
   }
-
-
-  async addFourToAllQuantity(req, res) {
-  try {
-    const products = await this.Product.find();
-
-    for (const product of products) {
-      product.quantity += 4;
-      await product.save();
-    }
-
-    res.json({
-      message: "به موجودی همه محصولات ۴ تا اضافه شد",
-      count: products.length,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "خطا در افزایش موجودی",
-    });
-  }
-}
 })();

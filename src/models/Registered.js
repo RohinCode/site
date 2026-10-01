@@ -24,7 +24,7 @@ const registeredSchema = new mongoose.Schema({
   ],
 
   totalPrice: {
-    type: String,
+    type: Number,
     required: true,
   },
 

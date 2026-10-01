@@ -1,6 +1,5 @@
 const controller = require("../controller");
 const _ = require("lodash");
-const config = require("config");
 
 module.exports = new (class extends controller {
   async OfferProducts(req, res) {
