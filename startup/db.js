@@ -5,6 +5,6 @@ require("dotenv").config();
 module.exports = function () {
   mongoose
     .connect(process.env.db)
-    .then(() => debug("connected to mongodb"))
+    .then(() => console.log("connected to mongodb"))
     .catch((e) => debug(e));
 };
