@@ -7,6 +7,7 @@ const CartRouter = require("./cart");
 const adminRouter = require("./admin");
 const reportRouter = require("./report");
 const messagesRouter = require("./messages");
+const commentRouter = require("./comment");
 const { isLoggined, isAdmin } = require("./../middlewares/auth");
 const error = require("./../middlewares/error");
 
@@ -18,6 +19,7 @@ router.use("/product", ProductRouter);
 router.use("/cart", CartRouter);
 router.use("/report", isLoggined, isAdmin, reportRouter);
 router.use("/messages", messagesRouter);
+router.use("/comment", commentRouter);
 
 router.use(error);
 
