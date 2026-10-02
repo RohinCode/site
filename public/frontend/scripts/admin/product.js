@@ -109,7 +109,7 @@ function setupProductForm() {
   const form = document.querySelector("#productForm");
 
   form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
 
     const formData = new FormData(form);
     const keywords = formData.get("keywords");

@@ -1,5 +1,6 @@
 const controller = require("../controller");
-
+const fs = require("fs/promises");
+const path = require("path");
 module.exports = new (class extends controller {
   async addToCart(req, res) {
     const { productId } = req.body;
@@ -177,6 +178,17 @@ module.exports = new (class extends controller {
       registeredProduct.products.map(async (item) => {
         const product = item.productId;
         if (product.quantity === 0) {
+          if (product.img) {
+            const imagePath = path.join(process.cwd(), "public", product.img);
+
+            try {
+              await fs.unlink(imagePath);
+              console.log("تصویر محصول حذف شد:", imagePath);
+            } catch (error) {
+              console.log("خطا در حذف تصویر:", error.message);
+            }
+          }
+
           await this.Product.findByIdAndDelete(product._id);
         }
 
