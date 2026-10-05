@@ -18,7 +18,7 @@ const CommentSchema = new mongoose.Schema({
     required: true,
     maxlength: [500, "کامنت نمی‌تواند بیشتر از 500 کلمه باشد"],
   },
-  date: { type: Date, default: Date.now, expires: 60 * 60 * 48 },
+  date: { type: Date, default: Date.now },
 });
 
 const Comment = mongoose.model("Comment", CommentSchema);
